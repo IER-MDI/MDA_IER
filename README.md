@@ -1,14 +1,15 @@
 # Ingeniería de Requisitos — Entrega 1
- 
+
 ## Equipo
 - Ignacio Geldes
 - Percival Leiva
-- Matías Abarca
 - Patricio Rivadeneira
 - Raúl Arteaga
+- Matías Abarca
 
 ## Proyecto
-[Nombre del proyecto y una descripción breve, 3 a 5 líneas]
+**Sistema de Gestión Académica e Inscripción Interactiva (SGAI)**
+Plataforma orientada a optimizar el proceso de preinscripción e inscripción de asignaturas universitarias mediante la automatización de la consolidación de oferta académica, visualización de carga de trabajo, simulación interactiva de horarios, proyección completa del avance curricular y centralización de evaluaciones y dificultad percibida por los estudiantes.
  
 ## Índice de documentos
 1. [Proceso AS-IS](./01-proceso-as-is.md)
