@@ -33,5 +33,5 @@ Sistema de Gestión Académica e Inscripción Interactiva (SGAI) Plataforma orie
 3. [Casos de uso](./09-casos-de-uso.md)
 4. [Diagramas de secuencia de sistema](./10-diagramas-secuencia.md)
 5. [Diagramas de estado](./11-diagramas-estado.md)
-6. [Trazabilidad](./12-trazabilidad.md
+6. [Trazabilidad](./12-trazabilidad.md)
 
