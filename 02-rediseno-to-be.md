@@ -19,7 +19,7 @@
 - **Objetivo o mejora que resuelve:** Unificar en una sola interfaz interactiva la selección visual de secciones cargadas desde el Excel traducido, la comprobación de dificultad/profesores y la validación inmediata de choques horarios y créditos.
 - **Efecto esperado:** Reducción a cero de errores de sobrecarga o topes horarios, optimizando el tiempo de planificación del estudiante.
 
-### Iniciativa 3: Malla Interactiva de Cadena Crítica y Calculadora de Tiempo de Egreso
+### Iniciativa 3: Malla Interactiva de Cadena Crítica y Calculadora de Tiempo de titulación 
 - **Actividad(es) del AS-IS que afecta:** Revisa su avance curricular.
 - **Heurística aplicada:** *Control Relocation* / *Informational Integration*.
 - **Objetivo o mejora que resuelve:** Evolucionar la malla estática de 1er grado a un grafo dinámico que despliegue todos los prerrequisitos/correquisitos en cadena y estime el tiempo mínimo real restante de carrera.
