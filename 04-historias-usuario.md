@@ -35,5 +35,5 @@ Como **estudiante**, quiero **seleccionar una asignatura en la malla interactiva
 Como **estudiante**, quiero **conocer la cantidad mínima estimada de semestres restantes para terminar mi carrera**, para **planificar estratégicamente mi avance académico**.
 - **Actividad TO-BE asociada:** Consultar malla interactiva y tiempo restante
 - **Criterios de aceptación:**
-  - **CA1:** El sistema analiza los ramos aprobados y calcula la ruta crítica mínima de semestres necesarios para egresar.
+  - **CA1:** El sistema analiza los ramos aprobados y calcula la ruta crítica mínima de semestres necesarios para titularse.
   - **CA2:** Si se simula reprobar o postergar un ramo, el indicador refleja el potencial retraso en semestres.
