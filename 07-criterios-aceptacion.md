@@ -1,8 +1,12 @@
 # Criterios de aceptación (Gherkin)
- 
-## HU-01 — Carga y traducción de oferta académica en Excel
-Historia: Como estudiante o administrador comunitario, quiero subir la planilla Excel publicada por la universidad y validar el mapeo de sus datos, para convertir la oferta académica estática en un formato estructurado consumible por la página.
- 
+
+## HU-01: Carga y Traducción de Oferta Académica en Excel
+
+Como **estudiante o administrador comunitario**, quiero **subir la planilla Excel publicada por la universidad y validar el mapeo de sus datos**, para **convertir la oferta académica estática en un formato estructurado consumible por la página**.
+
+**Actividad TO-BE asociada:** Sincronizar y publicar oferta y referencias en el sistema
+
+```gherkin
 Característica: Carga y traducción de la oferta académica
 
   Escenario: Una planilla de oferta académica válida se incorpora al sistema
@@ -17,10 +21,15 @@ Característica: Carga y traducción de la oferta académica
     Cuando el estudiante carga la planilla
     Entonces el sistema informa cuáles filas no pudo interpretar y el motivo de cada una
     Y esas filas no se incorporan a la oferta académica
- 
-## HU-02 — Planificador en grilla interactiva
-Historia: Como estudiante, quiero simular combinaciones de horarios en una grilla interactiva usando los ramos extraídos del Excel, para visualizar de forma clara mi carga académica y evitar choques horarios o sobrecarga de créditos.
+```
 
+## HU-02: Planificador en Grilla Interactiva
+
+Como **estudiante**, quiero **simular combinaciones de horarios en una grilla interactiva usando los ramos extraídos del Excel**, para **visualizar de forma clara mi carga académica y evitar choques horarios o sobrecarga de créditos**.
+
+**Actividad TO-BE asociada:** Simular horario y revisar métricas de dificultad
+
+```gherkin
 Característica: Simulación de horario con control de carga académica
 
   Escenario: Agregar una sección a la simulación actualiza la carga de créditos
@@ -44,12 +53,16 @@ Característica: Simulación de horario con control de carga académica
     Cuando el estudiante intenta agregar una sección de 5 créditos
     Entonces el sistema informa que se superaría el tope de créditos
     Y el total de créditos de la simulación sigue siendo 28
-    
- ## HU-03 - Consulta de referencias comunitarias y dificultad docente
- Historia: Como estudiante, quiero ver las calificaciones comunitarias de profesores y el nivel de dificultad atribuido a cada materia, para tomar
- decisiones informadas al armar mi horario.
+```
 
- Característica: Consulta de valoración docente y dificultad de asignaturas
+## HU-03: Consulta de Referencias Comunitaria y Dificultad Docente
+
+Como **estudiante**, quiero **ver las calificaciones comunitarias de profesores y el nivel de dificultad atribuido a cada materia**, para **tomar decisiones informadas al armar mi horario**.
+
+**Actividad TO-BE asociada:** Simular horario y revisar métricas de dificultad
+
+```gherkin
+Característica: Consulta de valoración docente y dificultad de asignaturas
 
   Escenario: Una sección con evaluaciones muestra la valoración del docente y la dificultad de la asignatura
     Dado un docente que ha recibido evaluaciones de 5, 3 y 4 en una escala de 1 a 5
@@ -64,11 +77,16 @@ Característica: Simulación de horario con control de carga académica
     Cuando el estudiante consulta una sección dictada por ese docente
     Entonces el sistema informa que todavía no hay evaluaciones disponibles
     Y no muestra ninguna valoración ni indicador de dificultad
-    
-## HU-04 - Malla interactiva y cadena crítica curricular
-Historia: Como estudiante, quiero seleccionar una asignatura en la malla interactiva y desplegar toda su cadena de prerrequisitos, para comprender   el impacto curricular completo de aprobar o reprobar un curso.
+```
 
- Característica: Consulta de la cadena de prerrequisitos de una asignatura
+## HU-04: Malla Interactiva y Cadena Crítica Curricular
+
+Como **estudiante**, quiero **seleccionar una asignatura en la malla interactiva y desplegar toda su cadena de prerrequisitos**, para **comprender el impacto curricular completo de aprobar o reprobar un curso**.
+
+**Actividad TO-BE asociada:** Consultar malla interactiva y tiempo restante
+
+```gherkin
+Característica: Consulta de la cadena de prerrequisitos de una asignatura
 
   Escenario: Una asignatura con prerrequisitos y dependientes muestra su cadena y su estado
     Dado un estudiante de una carrera cuya malla indica que Cálculo I es prerrequisito de Cálculo II
@@ -83,10 +101,15 @@ Historia: Como estudiante, quiero seleccionar una asignatura en la malla interac
     Cuando el estudiante consulta esa asignatura
     Entonces el sistema informa que no tiene prerrequisitos
     Y señala todas las asignaturas que dependen de ella
+```
 
-## HU-05 - Estimación del tiempo restante de titulación
-Historia: Como estudiante, quiero conocer la cantidad mínima estimada de semestres restantes para terminar mi carrera, para planificar estratégicamente mi avance académico.
+## HU-05: Estimación del Tiempo Restante de Titulación
 
+Como **estudiante**, quiero **conocer la cantidad mínima estimada de semestres restantes para terminar mi carrera**, para **planificar estratégicamente mi avance académico**.
+
+**Actividad TO-BE asociada:** Consultar malla interactiva y tiempo restante
+
+```gherkin
 Característica: Estimación del tiempo restante de titulación
 
   Escenario: El sistema estima el mínimo de semestres restantes a partir del avance
@@ -100,4 +123,5 @@ Característica: Estimación del tiempo restante de titulación
     Cuando el estudiante simula reprobar esa asignatura
     Entonces el sistema informa que el mínimo estimado pasa a 5 semestres
     Y señala que el retraso es de 1 semestre
+```
     
