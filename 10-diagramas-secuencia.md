@@ -20,5 +20,13 @@ Variantes representadas:
 - **alt — Confirmación de oferta:** publica los datos cuando son válidos y el usuario confirma; de lo contrario, finaliza sin publicarlos.
 
  
-## DSS-02 — [Nombre del escenario]
-[Misma estructura. Mínimo 2 diagramas.]
+## DSS-02 — Simulación de horario académico (HU-02)
+- Caso de uso: [CU-01](./09-casos-de-uso.md)
+- Historia: [HU-02]
+- Sistemas externos que participan: Ninguno durante la simulación
+
+<img width="604" height="1543" alt="aaaaa" src="https://github.com/user-attachments/assets/6f2d1505-0800-4c7c-a503-53da12690068" /
+
+- **alt: conflictos de horario, exceso de créditos y selección válida
+- **opt: eliminar una sección 
+- **loop: modificar horario repetidamente
