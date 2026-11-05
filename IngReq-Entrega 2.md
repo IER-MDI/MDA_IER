@@ -13,16 +13,15 @@ Sistema de Gestión Académica e Inscripción Interactiva (SGAI) Plataforma orie
 ## Responsabilidades individuales
 | Documento | Ítem de rúbrica | Responsable(s) |
 |-----------|-----------------|----------------|
-| 07-criterios-aceptacion.md | 1 | [Nombre integrante] |
-| 08-modelo-dominio.md | 2 | [Nombre integrante] |
-| 09-casos-de-uso.md | 3 | [Nombre integrante] |
-| 10-diagramas-secuencia.md | 4 | [Nombre integrante] |
-| 11-diagramas-estado.md | 5 | [Nombre integrante] |
-| 12-trazabilidad.md | 6 | [Nombre integrante] |
+| 07-criterios-aceptacion.md | 1 | Patricio Rivadeneira |
+| 08-modelo-dominio.md | 2 | Patricio Rivadeneira |
+| 09-casos-de-uso.md | 3 | Ignacio Geldes|
+| 10-diagramas-secuencia.md | 4 | Percival Leiva |
+| 11-diagramas-estado.md | 5 | Ignacio Geldes / Raúl Arteaga |
+| 12-trazabilidad.md | 6 | Patricio Rivadeneira / Matías Abarca |
  
 ## Uso de IA generativa
-[Herramienta usada, para qué tareas y qué se corrigió o descartó del borrador;
- o "No se utilizó IA generativa"]
+Para este trabajo se ha utilizado Claude con el fin de organizar (no completar) el repositorio y cada archivo MD requerido en la entrega, también se ha utilizado para hacer bosquejos de diagramas. 
  
 ## Entrega anterior
 [IngReq-Entrega 1](./IngReq-Entrega%201.md)
