@@ -1,5 +1,6 @@
 # Casos de uso
- 
+## Historia de origen:
+HU-01: Carga y Traducción de Oferta Académica en Excel
 ## Actores
 | Actor | Tipo (humano / sistema externo) | Descripción |
 |-------|----------------------------------|-------------|
