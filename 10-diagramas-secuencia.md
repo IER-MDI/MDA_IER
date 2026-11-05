@@ -1,9 +1,9 @@
 # Diagramas de secuencia de sistema
  
-## DSS-01 — [Nombre del escenario]
+## DSS-01 — Carga y validación de oferta académica
 - Caso de uso: [CU-01](./09-casos-de-uso.md)
 - Historia: [HU-01](./04-historias-usuario.md#hu-01)
-- Sistemas externos que participan: [nombre]
+- Sistemas externos que participan: Sistema de la Universidad
  
 ![DSS-01](./diagramas/dss-01.png)
  
