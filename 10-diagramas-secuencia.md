@@ -4,8 +4,10 @@
 - Caso de uso: [CU-01](./09-casos-de-uso.md)
 - Historia: [HU-01](./04-historias-usuario.md#hu-01)
 - Sistemas externos que participan: Sistema de la Universidad
+
+
  
-![DSS-01](./diagramas/dss-01.png)
+![DSS-01](./diagramas/dss-01.md)
  
 Archivo fuente: [`./diagramas/dss-01.puml`](./diagramas/dss-01.puml)
  
