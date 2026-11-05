@@ -11,7 +11,7 @@ HU-01: Carga y Traducción de Oferta Académica en Excel
 ## Diagrama de casos de uso
 ![Casos de uso](./diagramas/casos-de-uso.png)
  
-Archivo fuente: [`./diagramas/casos-de-uso.puml`](./diagramas/casos-de-uso.puml)
+Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/casos-de-uso.drawio)
  
 ## Casos de uso y su origen
 | ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
