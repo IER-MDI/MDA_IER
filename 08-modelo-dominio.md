@@ -4,7 +4,7 @@
 
 ![Modelo de dominio](./diagramas/modelo-dominio.png)
 
-Archivo fuente: [`./diagramas/modelo-dominio.puml`](./diagramas/modelo-dominio.puml)
+Archivo fuente: [`./diagramas/modelo-dominio.puml`](https://github.com/IER-MDI/MDA_IER/blob/main/diagramas/modelo-dominio.puml)
 
 ## Descripción de las clases
 
