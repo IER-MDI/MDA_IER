@@ -20,3 +20,4 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/casos-de-uso.dra
 | CU-02 | Validar datos parseados | Cada actor involucrado | [HU-01](./04-historias-usuario.md#hu-01) |
 | CU-03 | Previsualizar datos | Estudiante y administrador | [HU-01](./04-historias-usuario.md#hu-01) |
 | CU-04 | Confirmar datos | Estudiante y administrador | [HU-01](./04-historias-usuario.md#hu-01) |
+| CU-05 | Simular horario semestral | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
