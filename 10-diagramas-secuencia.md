@@ -25,7 +25,8 @@ Variantes representadas:
 - Historia: [HU-02]
 - Sistemas externos que participan: Ninguno durante la simulación
 
-<img width="604" height="1543" alt="aaaaa" src="https://github.com/user-attachments/assets/6f2d1505-0800-4c7c-a503-53da12690068" /
+<img width="604" height="1543" alt="aaaaa" src="https://github.com/user-attachments/assets/d1620fc5-8f01-43e8-8474-1f1fa5e6e4b7" />
+
 
 - **alt: conflictos de horario, exceso de créditos y selección válida
 - **opt: eliminar una sección 
