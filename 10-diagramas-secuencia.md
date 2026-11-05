@@ -12,7 +12,13 @@
  
 Archivo fuente: [`./diagramas/dss-01.puml`](./diagramas/dss-01.puml)
  
-Variantes representadas: [descripción de cada alt/opt/loop]
+Variantes representadas:
+
+- **alt — Formato de archivo:** verifica si el archivo Excel o CSV es admitido. Si no lo es, informa un error.
+- **opt — Corrección del mapeo:** permite que el usuario modifique la correspondencia entre las columnas de la planilla y los campos del sistema.
+- **loop — Validación de datos:** repite la validación mientras existan inconsistencias que deban corregirse.
+- **alt — Confirmación de oferta:** publica los datos cuando son válidos y el usuario confirma; de lo contrario, finaliza sin publicarlos.
+
  
 ## DSS-02 — [Nombre del escenario]
 [Misma estructura. Mínimo 2 diagramas.]
