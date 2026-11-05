@@ -5,6 +5,7 @@
 - Historia: [HU-01](./04-historias-usuario.md#hu-01)
 - Sistemas externos que participan: Sistema de la Universidad
 
+<img width="1280" height="1187" alt="diagrama" src="https://github.com/user-attachments/assets/e6afbac9-3aa0-4162-a98c-15748e5a867a" />
 
  
 ![DSS-01](./diagramas/dss-01.md)
