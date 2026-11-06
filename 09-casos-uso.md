@@ -39,8 +39,8 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-02.drawio)
 ## Casos de uso y su origen
 | ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
 |----|-----------------------------------|-----------------|---------------------|
-| CU-06 | Agregar sección a grilla horaria | Estudiante | [HU-01](./04-historias-usuario.md#hu-02) |
-| CU-07 | Remover sección de la grilla horaria | Estudiante | [HU-01](./04-historias-usuario.md#hu-02) |
-| CU-08 | Consultar créditos totales de la carga académica | Estudiante | [HU-01](./04-historias-usuario.md#hu-02) |
-| CU-09 | Advertir choque de horario | - | [HU-01](./04-historias-usuario.md#hu-02) |
+| CU-06 | Agregar sección a grilla horaria | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-07 | Remover sección de la grilla horaria | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-08 | Consultar créditos totales de la carga académica | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-09 | Advertir choque de horario | - | [HU-02](./04-historias-usuario.md#hu-02) |
 | CU-10 | Advertir exceso del tope crediticio | -| [HU-02](./04-historias-usuario.md#hu-02) |
