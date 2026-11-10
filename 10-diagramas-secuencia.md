@@ -8,9 +8,9 @@
 <img width="1280" height="1187" alt="diagrama" src="https://github.com/user-attachments/assets/e6afbac9-3aa0-4162-a98c-15748e5a867a" />
 
  
-![DSS-01](./diagramas/dss-01.md)
+![DSS-01](./diagramas/dss_01.md)
  
-Archivo fuente: [`./diagramas/dss-01.puml`](./diagramas/dss_01.md)
+Archivo fuente: [`./diagramas/dss-01.puml`](./diagramas/dss-01.puml)
  
 Variantes representadas:
 
