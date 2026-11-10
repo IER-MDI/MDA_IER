@@ -1,7 +1,7 @@
 # Diagramas de secuencia de sistema
  
 ## DSS-01 — Carga y validación de oferta académica
-- Caso de uso: [CU-01](./09-casos-de-uso.md) 
+- Caso de uso: [CU-01](./09-casos-uso.md) 
 - Historia: [HU-01](./04-historias-usuario.md#hu-01)
 - Sistemas externos que participan: Sistema de la Universidad
 
@@ -21,7 +21,7 @@ Variantes representadas:
 
  
 ## DSS-02 — Simulación de horario académico (HU-02)
-- Caso de uso: [CU-01](./09-casos-de-uso.md)
+- Caso de uso: [CU-01](./09-casos-uso.md)
 - Historia: [HU-02]
 - Sistemas externos que participan: Ninguno durante la simulación
 
