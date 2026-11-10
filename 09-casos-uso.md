@@ -46,7 +46,7 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-02.drawio)
 | CU-10 | Advertir exceso del tope crediticio | -| [HU-02](./04-historias-usuario.md#hu-02) |
 
 # ! Estos fueron añadidos después de la fecha de entrega
-HU-03: Consulta de Referencias Comunitaria y Dificultad Docente
+## HU-03: Consulta de Referencias Comunitaria y Dificultad Docente
 ## Actores
 | Actor | Tipo (humano / sistema externo) | Descripción |
 |-------|----------------------------------|-------------|
@@ -64,7 +64,7 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-03.drawio)
 | CU-11 | Consultar valoración comunitaria del docente | Estudiante | [HU-03](./04-historias-usuario.md#hu-03) |
 | CU-12 | Consultar nivel de dificultad de la asignatura | Estudiante | [HU-03](./04-historias-usuario.md#hu-03) |
 
-HU-04: Malla Interactiva y Cadena Crítica Curricular
+## HU-04: Malla Interactiva y Cadena Crítica Curricular
 ## Actores
 | Actor | Tipo (humano / sistema externo) | Descripción |
 |-------|----------------------------------|-------------|
@@ -82,7 +82,7 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-04.drawio)
 | CU-13 | Visualizar malla interactiva con estado de asignaturas | Estudiante | [HU-04](./04-historias-usuario.md#hu-04) |
 | CU-14 | Consultar cadena de prerrequisitos de una asignatura | Estudiante | [HU-04](./04-historias-usuario.md#hu-04) |
 
-HU-05: Estimación del Tiempo Restante de Titulación
+## HU-05: Estimación del Tiempo Restante de Titulación
 ## Actores
 | Actor | Tipo (humano / sistema externo) | Descripción |
 |-------|----------------------------------|-------------|
