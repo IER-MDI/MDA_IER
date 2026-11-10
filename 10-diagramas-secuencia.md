@@ -10,7 +10,7 @@
  
 ![DSS-01](./diagramas/dss-01.md)
  
-Archivo fuente: [`./diagramas/dss-01.puml`](./diagramas/dss-01.puml)
+Archivo fuente: [`./diagramas/dss-01.puml`](./diagramas/dss_01.puml)
  
 Variantes representadas:
 
