@@ -44,3 +44,63 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-02.drawio)
 | CU-08 | Consultar créditos totales de la carga académica | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
 | CU-09 | Advertir choque de horario | - | [HU-02](./04-historias-usuario.md#hu-02) |
 | CU-10 | Advertir exceso del tope crediticio | -| [HU-02](./04-historias-usuario.md#hu-02) |
+
+# ! Estos fueron añadidos después de la fecha de entrega
+HU-03: Consulta de Referencias Comunitaria y Dificultad Docente
+## Actores
+| Actor | Tipo (humano / sistema externo) | Descripción |
+|-------|----------------------------------|-------------|
+| Estudiante  | Humano | Consulta la valoración de los docentes y la dificultad de cada materia para decidir su horario |
+
+ 
+## Diagrama de casos de uso
+![Casos de uso](./diagramas/CU-03.png)
+ 
+Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-03.drawio)
+ 
+## Casos de uso y su origen
+| ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
+|----|-----------------------------------|-----------------|---------------------|
+| CU-11 | Consultar valoración comunitaria del docente | Estudiante | [HU-03](./04-historias-usuario.md#hu-03) |
+| CU-12 | Consultar nivel de dificultad de la asignatura | Estudiante | [HU-03](./04-historias-usuario.md#hu-03) |
+
+HU-04: Malla Interactiva y Cadena Crítica Curricular
+## Actores
+| Actor | Tipo (humano / sistema externo) | Descripción |
+|-------|----------------------------------|-------------|
+| Estudiante  | Humano | Explora la malla interactiva y consulta los prerrequisitos de una asignatura |
+
+ 
+## Diagrama de casos de uso
+![Casos de uso](./diagramas/CU-04.png)
+ 
+Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-04.drawio)
+ 
+## Casos de uso y su origen
+| ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
+|----|-----------------------------------|-----------------|---------------------|
+| CU-13 | Visualizar malla interactiva con estado de asignaturas | Estudiante | [HU-04](./04-historias-usuario.md#hu-04) |
+| CU-14 | Consultar cadena de prerrequisitos de una asignatura | Estudiante | [HU-04](./04-historias-usuario.md#hu-04) |
+
+HU-05: Estimación del Tiempo Restante de Titulación
+## Actores
+| Actor | Tipo (humano / sistema externo) | Descripción |
+|-------|----------------------------------|-------------|
+| Estudiante  | Humano | Consulta cuántos semestres le faltan para titularse y simula escenarios de retraso |
+
+ 
+## Diagrama de casos de uso
+![Casos de uso](./diagramas/CU-05.png)
+ 
+Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-05.drawio)
+ 
+## Casos de uso y su origen
+| ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
+|----|-----------------------------------|-----------------|---------------------|
+| CU-14 | Consultar semestres mínimos restantes para titularse | Estudiante | [HU-05](./04-historias-usuario.md#hu-05) |
+| CU-15 | Simular reprobación o postergación de una asignatura | Estudiante | [HU-05](./04-historias-usuario.md#hu-05) |
+
+
+
+
+
