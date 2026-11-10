@@ -22,7 +22,7 @@ Variantes representadas:
  
 ## DSS-02 — Simulación de horario académico (HU-02)
 - Caso de uso: [CU-01](./09-casos-uso.md)
-- Historia: [HU-02]
+- Historia: [HU-02](./04-historias-usuario.md#hu-02)
 - Sistemas externos que participan: Ninguno durante la simulación
 
 <img width="604" height="1543" alt="aaaaa" src="https://github.com/user-attachments/assets/d1620fc5-8f01-43e8-8474-1f1fa5e6e4b7" />
