@@ -22,5 +22,3 @@ Archivo fuente: [`./diagramas/est-01.puml`](./diagramas/est-01.puml)
 |Publicada | reemplazar oferta | nueva oferta del mismo período publicada | retirar del simulador| fin |
 |Rechazada | — | — | — | fin |
  
-## EST-02 — Ciclo de vida de [Clase]
-[Misma estructura. Mínimo 2 diagramas.]
