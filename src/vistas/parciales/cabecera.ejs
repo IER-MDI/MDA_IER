@@ -1,0 +1,15 @@
+<header>
+  <div>
+    <h1>SGAI — Planificador de horario</h1>
+    <div class="datos">
+      <%= estudiante.nombre %> · Rol: <span class="rol"><%= rolEtiqueta %></span>
+    </div>
+  </div>
+  <form method="post" action="/rol" class="en-linea">
+    <label for="rol">Rol de demostración</label>
+    <select id="rol" name="rol">
+      <option value="estudiante" <%= rol === "estudiante" ? "selected" : "" %>>Estudiante</option>
+    </select>
+    <button type="submit">Cambiar rol</button>
+  </form>
+</header>

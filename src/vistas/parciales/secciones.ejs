@@ -1,0 +1,68 @@
+<section class="tarjeta">
+  <h2>Secciones de la oferta académica</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Asignatura</th>
+        <th>Sección</th>
+        <th>Docente</th>
+        <th>Créditos</th>
+        <th>Horario</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% secciones.forEach(function (seccion) { %>
+      <tr>
+        <td><%= seccion.asignatura.codigo %> — <%= seccion.asignatura.nombre %></td>
+        <td><%= seccion.numero %></td>
+        <td><%= seccion.docente %></td>
+        <td><%= seccion.asignatura.creditos %></td>
+        <td><%= seccion.horarioTexto %></td>
+        <td>
+          <form method="post" action="/planificador/secciones" class="en-linea">
+            <input type="hidden" name="seccion_id" value="<%= seccion.id %>" />
+            <button type="submit">Agregar</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
+
+<section class="tarjeta">
+  <h2>Secciones en tu horario</h2>
+  <% if (incluidas.length === 0) { %>
+  <p class="vacio">Aún no agregas secciones a tu simulación.</p>
+  <% } else { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Asignatura</th>
+        <th>Sección</th>
+        <th>Docente</th>
+        <th>Créditos</th>
+        <th>Horario</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% incluidas.forEach(function (seccion) { %>
+      <tr>
+        <td><%= seccion.asignatura.codigo %> — <%= seccion.asignatura.nombre %></td>
+        <td><%= seccion.numero %></td>
+        <td><%= seccion.docente %></td>
+        <td><%= seccion.asignatura.creditos %></td>
+        <td><%= seccion.horarioTexto %></td>
+        <td>
+          <form method="post" action="/planificador/secciones/<%= seccion.id %>/eliminar" class="en-linea">
+            <button type="submit">Quitar</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</section>

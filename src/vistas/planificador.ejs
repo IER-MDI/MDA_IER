@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SGAI — Planificador de horario</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #f4f6f8;
+        color: #1f2933;
+      }
+      header {
+        background: #1f3a5f;
+        color: #ffffff;
+        padding: 1rem 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header h1 {
+        font-size: 1.15rem;
+        margin: 0;
+      }
+      header .datos {
+        font-size: 0.85rem;
+        opacity: 0.9;
+      }
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1.25rem;
+        display: grid;
+        gap: 1.25rem;
+      }
+      .tarjeta {
+        background: #ffffff;
+        border: 1px solid #d9e2ec;
+        border-radius: 8px;
+        padding: 1rem;
+      }
+      .tarjeta h2 {
+        margin-top: 0;
+        font-size: 1rem;
+      }
+      .mensaje {
+        padding: 0.65rem 0.9rem;
+        border-radius: 6px;
+        margin: 0;
+      }
+      .mensaje.ok {
+        background: #e3f9e5;
+        border: 1px solid #7fd18b;
+      }
+      .mensaje.error {
+        background: #fde8e8;
+        border: 1px solid #e28a8a;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+      }
+      th,
+      td {
+        border: 1px solid #d9e2ec;
+        padding: 0.45rem;
+        vertical-align: top;
+        text-align: left;
+      }
+      th {
+        background: #eef2f6;
+      }
+      .grilla td {
+        min-width: 7.5rem;
+        height: 2.6rem;
+      }
+      .grilla .bloque {
+        display: block;
+        background: #e0edff;
+        border-radius: 4px;
+        padding: 0.15rem 0.3rem;
+        margin-bottom: 0.2rem;
+      }
+      .total {
+        font-size: 1.05rem;
+      }
+      form.en-linea {
+        display: inline;
+      }
+      button {
+        cursor: pointer;
+        border: 1px solid #1f3a5f;
+        background: #ffffff;
+        color: #1f3a5f;
+        border-radius: 4px;
+        padding: 0.2rem 0.5rem;
+      }
+      button:hover {
+        background: #e0edff;
+      }
+      .vacio {
+        color: #616e7c;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("parciales/cabecera", { rol, rolEtiqueta, estudiante, simulacion }) %>
+    <main>
+      <%- include("parciales/mensajes", { ok, error }) %>
+
+      <section class="tarjeta">
+        <h2>Simulación «<%= simulacion.nombre %>»</h2>
+        <p class="total">
+          <strong id="total-creditos"><%= totalCreditos %> de <%= tope %> créditos</strong>
+          · Estado: <%= simulacion.estado %>
+        </p>
+        <%- include("parciales/grilla", { grilla }) %>
+      </section>
+
+      <%- include("parciales/secciones", { secciones, incluidas }) %>
+    </main>
+  </body>
+</html>

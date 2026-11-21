@@ -1,0 +1,29 @@
+{
+  "name": "sgai",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "SGAI — Sistema de Gestión Académica e Inscripción Interactiva",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "db:seed": "tsx src/db/seed.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.2.0",
+    "ejs": "^7.0.2",
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.6",
+    "@types/supertest": "^7.2.1",
+    "supertest": "^7.3.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
+  }
+}

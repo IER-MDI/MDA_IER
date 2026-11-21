@@ -1,0 +1,26 @@
+<table class="grilla">
+  <thead>
+    <tr>
+      <th>Franja</th>
+      <% grilla[0].celdas.forEach(function (celda) { %>
+      <th><%= celda.etiqueta %></th>
+      <% }) %>
+    </tr>
+  </thead>
+  <tbody>
+    <% grilla.forEach(function (franja) { %>
+    <tr>
+      <th><%= franja.etiqueta %></th>
+      <% franja.celdas.forEach(function (celda) { %>
+      <td>
+        <% if (celda.secciones.length === 0) { %>
+        <span class="vacio">—</span>
+        <% } %> <% celda.secciones.forEach(function (seccion) { %>
+        <span class="bloque"><%= seccion.asignatura.nombre %> (S<%= seccion.numero %>)</span>
+        <% }) %>
+      </td>
+      <% }) %>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

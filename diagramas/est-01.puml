@@ -1,0 +1,36 @@
+@startuml
+title Diagrama de estados de la clase Oferta Académica (importación y publicación)
+
+skinparam state {
+  BackgroundColor #27A9F5
+  BorderColor #000000
+  ArrowColor #333333
+}
+skinparam ArrowFontSize 11
+skinparam defaultFontName Arial
+
+state "Archivo recibido" as ArchivoRecibido
+state "Mapeo en revisión" as MapeoEnRevision
+state "Mapeo confirmado" as MapeoConfirmado
+state "Con inconsistencias" as ConInconsistencias
+state "Estructurada" as Estructurada
+state "Publicada" as Publicada
+state "Rechazada" as Rechazada
+
+[*] --> ArchivoRecibido : solicitar archivo\n/ registrar archivo
+
+ArchivoRecibido --> MapeoEnRevision : evaluar formato\n[formato admitido]\n/ detectar columnas\n mostrar vista previa y mapeo
+ArchivoRecibido --> Rechazada : evaluar formato\n[formato no admitido]\n/ rechazar archivo\n informar error
+
+MapeoEnRevision --> MapeoConfirmado : confirmarMapeo\n/ validar campos y convertir a json
+
+MapeoConfirmado --> Estructurada : validar datos\n[datos y mapeo válidos]\n/ generar oferta estructurada\nmostrar vista previa definitiva
+MapeoConfirmado --> ConInconsistencias : validar datos\n[columnas o datos incompletos]\n/ reportarInconsistencias
+
+ConInconsistencias --> MapeoEnRevision : corregirMapeo\n/ solicitarCorreccionDelMapeo
+
+Estructurada --> Publicada : confirmar publicacion\n/ guardar oferta confirmada\nfecha publicacion\nnotificar disponible en simulador
+
+Publicada --> [*] : reemplazar oferta\n[nueva oferta del mismo período publicada]\n/ retirar del simulador
+Rechazada --> [*]
+@enduml

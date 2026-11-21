@@ -1,0 +1,66 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam backgroundColor white
+
+class Estudiante {
+    nombre
+    rut
+}
+
+class Carrera {
+    nombre
+    duracionSemestres
+    topeCreditosSemestre
+}
+
+class Asignatura {
+    codigo
+    nombre
+    creditos
+    semestreSugerido
+}
+
+class "Asignatura Cursada" as AsignaturaCursada {
+    resultado
+    periodo
+}
+
+class "Oferta Académica" as OfertaAcademia {
+    periodo
+    fechaPublicacion
+}
+
+class Sección {
+    numero
+    cupos
+    docente
+    horario
+}
+
+class "Simulación de Horario" as SimulacionHorario {
+    nombre
+    creditosTotales
+    estado
+}
+
+class Evaluación {
+    docente
+    calificacionDocente
+    dificultadPercibida
+    comentario
+}
+
+Estudiante "1" -- "0..*" Carrera : cursa >
+Estudiante "1" -- "0..*" AsignaturaCursada : tiene en su avance >
+Estudiante "1" -- "0..*" SimulacionHorario : arma >
+
+Carrera "1..*" -- "1..*" Asignatura : tiene en su malla >
+AsignaturaCursada "0..*" -- "1" Asignatura : corresponde a >
+Asignatura "1" -- "0..*" Sección : es una oferta de >
+Asignatura "1" -- "0..*" Asignatura : es prerrequisito de >
+Asignatura "1" -- "0..*" Evaluación : valora la dificultad de >
+
+OfertaAcademia "1" *-- "1..*" Sección : contiene >
+SimulacionHorario "0..*" -- "0..*" Sección : incluye >
+
+@enduml
