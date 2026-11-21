@@ -1,6 +1,6 @@
 # Informe de validación — HU-02 · Planificador en grilla interactiva
 
-**Fecha:** 2026-11-20 · **Cambio de OpenSpec validado:** `hu-02-planificador-grilla` · **Estado:** artefactos actualizados
+**Fecha:** 2026-11-20 · **Cambio de OpenSpec validado:** `hu-02-planificador-grilla` · **Estado:** verificado en el sistema
 
 ## Resumen
 | Obs. | Lo que observaste | Tipo | Artefacto principal a modificar | También revisar |

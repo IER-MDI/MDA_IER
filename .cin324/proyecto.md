@@ -36,7 +36,7 @@
 | Historia | Estado | Cambio de OpenSpec | Fecha | Observaciones |
 |----------|--------|--------------------|-------|----------------|
 | HU-01 | pendiente | — | — | Dependencia base: carga la oferta académica |
-| HU-02 | implementada — pendiente de validación del estudiante | hu-02-planificador-grilla | 2026-11-20 | Datos de ejemplo; simulación activa única |
+| HU-02 | implementada y validada | hu-02-planificador-grilla + ajuste-hu-02-oferta-seccion-agregada | 2026-11-20 | Datos de ejemplo; simulación activa única; OBS-1 resuelta |
 | HU-03 | pendiente | — | — | Depende de HU-01/HU-02 (métricas en el simulador) |
 | HU-04 | pendiente | — | — | Depende de datos de malla y avance |
 | HU-05 | pendiente | — | — | Depende de HU-04 (malla y prerrequisitos) |
@@ -44,9 +44,9 @@
 ## Validaciones
 | Historia | Informe | Estado | Fecha |
 |----------|---------|--------|-------|
-| HU-02 | — (observación directa del estudiante) | Observación pendiente: al agregar una sección debería desaparecer de «Secciones de la oferta académica» y quedar solo en «Secciones en tu horario» hasta removerla. No es un defecto: no está en el Gherkin ni en los CA. Exigiría actualizar la historia, sus criterios y la spec (no el modelo de dominio). Sin decidir si se actualizan los artefactos. | 2026-11-20 |
+| HU-02 | `.cin324/validaciones/VAL-HU-02-1.md` | Verificado en el sistema. OBS-1 resuelta (la sección agregada sale de la oferta y vuelve al removerla). OBS-2 tipo F: los 27/28 créditos son límite de los datos de ejemplo. | 2026-11-20 |
 
 ## Cambios posteriores
 | Cambio | Historia afectada | Motivo | Fecha |
 |--------|-------------------|--------|-------|
-| — | — | — | — |
+| `ajuste-hu-02-oferta-seccion-agregada` | HU-02 | OBS-1: la sección agregada sale de la oferta y vuelve al removerla | 2026-11-20 |

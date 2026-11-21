@@ -100,6 +100,28 @@ describe("HU-02 · Planificador de horario (HTTP)", () => {
     db.close();
   });
 
+  it("Escenario · Una sección de la simulación deja de ofrecerse y vuelve al removerla", async () => {
+    const { db, app } = appDePrueba();
+    const mat101 = idSeccion(db, "MAT101");
+
+    const antes = await request(app).get("/planificador");
+    expect(antes.text.match(/>Agregar</g) ?? []).toHaveLength(8);
+
+    await request(app).post("/planificador/secciones").type("form").send({ seccion_id: mat101 });
+    const despues = await request(app).get("/planificador");
+    expect(despues.text.match(/>Agregar</g) ?? []).toHaveLength(7);
+    expect(despues.text).toContain("MAT101");
+    expect(despues.text).toContain("5 de 30 créditos");
+
+    const baja = await request(app).post(`/planificador/secciones/${mat101}/eliminar`);
+    expect(baja.status).toBe(302);
+    const final = await request(app).get(baja.headers.location ?? "/planificador");
+    expect(final.text.match(/>Agregar</g) ?? []).toHaveLength(8);
+    expect(final.text).toContain("MAT101");
+    expect(final.text).toContain("0 de 30 créditos");
+    db.close();
+  });
+
   it("5.3 GET / redirige al planificador y el rol se muestra en la cabecera", async () => {
     const { db, app } = appDePrueba();
 

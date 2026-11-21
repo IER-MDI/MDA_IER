@@ -33,7 +33,7 @@ Abre `http://localhost:3000`. La base se crea en `data/app.db` y los datos de ej
 npm test
 ```
 
-Corre las pruebas de los tres escenarios Gherkin de HU-02, la remoción de secciones, el solapamiento de bloques y las rutas HTTP.
+Corre las pruebas de los cuatro escenarios Gherkin de HU-02, la remoción de secciones, el solapamiento de bloques y las rutas HTTP.
 
 ### Datos de ejemplo
 Carrera «Ingeniería Civil Informática» con tope de **30 créditos** y un estudiante demo («Mi horario», estado «en armado»).
@@ -53,7 +53,7 @@ Carrera «Ingeniería Civil Informática» con tope de **30 créditos** y un est
 1. **Créditos:** agrega MAT101 (5) y luego MAT102 (6). El total debe mostrar **11 de 30 créditos** y ambas secciones en la grilla.
 2. **Choque:** con MAT101 en el horario, intenta agregar FIS101. Debe aparecer «Choque de horario con Cálculo I sección 1» y el total seguir en 11.
 3. **Tope:** agrega MAT101, PROG101, BD101, ING101 y ECO101 (28 créditos) e intenta agregar HUM101. Debe aparecer «Se superaría el tope de créditos: 33 de 30» y el total seguir en 28.
-4. **Quitar:** usa «Quitar» en cualquier sección incluida; el total se recalcula.
+4. **Oferta y quitar:** agrega MAT101 y comprueba que desaparece de «Secciones de la oferta académica» y queda solo en «Secciones en tu horario»; usa «Quitar» y comprueba que vuelve a la oferta y el total queda en **0 de 30 créditos**.
 
 ### Estructura
 ```text

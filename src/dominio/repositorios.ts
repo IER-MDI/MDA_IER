@@ -73,6 +73,18 @@ export function listarSecciones(db: BaseDatos): Seccion[] {
   return filas.map((fila) => armarSeccion(db, fila));
 }
 
+export function listarSeccionesDisponibles(db: BaseDatos, simulacionId: number): Seccion[] {
+  const filas = db
+    .prepare(
+      SELECT_SECCION +
+        "JOIN oferta_academica o ON o.id = s.oferta_id " +
+        "WHERE s.id NOT IN (SELECT seccion_id FROM simulacion_seccion WHERE simulacion_id = ?) " +
+        "ORDER BY a.codigo, s.numero"
+    )
+    .all(simulacionId) as FilaSeccion[];
+  return filas.map((fila) => armarSeccion(db, fila));
+}
+
 export function obtenerSeccion(db: BaseDatos, seccionId: number): Seccion | null {
   const fila = db.prepare(SELECT_SECCION + "WHERE s.id = ?").get(seccionId) as FilaSeccion | undefined;
   return fila ? armarSeccion(db, fila) : null;

@@ -1,7 +1,11 @@
 import { Router } from "express";
 import type { BaseDatos } from "../db/conexion";
 import { textoHorario } from "../dominio/horario";
-import { listarSecciones, obtenerEstudianteDemo, obtenerTopeCreditos } from "../dominio/repositorios";
+import {
+  listarSeccionesDisponibles,
+  obtenerEstudianteDemo,
+  obtenerTopeCreditos,
+} from "../dominio/repositorios";
 import { DIAS, ETIQUETAS_DIA, FRANJAS, type Seccion } from "../dominio/tipos";
 import {
   agregarSeccion,
@@ -53,7 +57,7 @@ export function crearRutasPlanificador(db: BaseDatos): Router {
     }
 
     const simulacion = obtenerSimulacionActivaDelEstudiante(db, estudiante.id);
-    const secciones = listarSecciones(db);
+    const secciones = listarSeccionesDisponibles(db, simulacion.id);
     const incluidas = listarSeccionesIncluidas(db, simulacion.id);
     const totalCreditos = calcularCreditos(db, simulacion.id);
     const tope = obtenerTopeCreditos(db, estudiante.id);

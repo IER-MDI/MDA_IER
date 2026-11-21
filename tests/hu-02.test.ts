@@ -6,6 +6,7 @@ import {
   obtenerSimulacionActivaDelEstudiante,
   removerSeccion,
 } from "../src/servicios/simulacion";
+import { listarSeccionesDisponibles } from "../src/dominio/repositorios";
 import { baseSembrada, idEstudianteDemo, idSeccion } from "./ayuda";
 
 describe("HU-02 · Simulación de horario", () => {
@@ -80,6 +81,24 @@ describe("HU-02 · Simulación de horario", () => {
     const incluidas = listarSeccionesIncluidas(db, simulacion.id);
     expect(incluidas).toHaveLength(1);
     expect(incluidas[0]?.asignatura.codigo).toBe("MAT101");
+    db.close();
+  });
+
+  it("Escenario · Una sección de la simulación deja de ofrecerse y vuelve al removerla", () => {
+    const db = baseSembrada();
+    const simulacion = obtenerSimulacionActivaDelEstudiante(db, idEstudianteDemo(db));
+    const mat101 = idSeccion(db, "MAT101");
+    expect(listarSeccionesDisponibles(db, simulacion.id)).toHaveLength(8);
+
+    agregarSeccion(db, simulacion.id, mat101);
+    const disponibles = listarSeccionesDisponibles(db, simulacion.id);
+    expect(disponibles).toHaveLength(7);
+    expect(disponibles.map((seccion) => seccion.asignatura.codigo)).not.toContain("MAT101");
+
+    removerSeccion(db, simulacion.id, mat101);
+    const despues = listarSeccionesDisponibles(db, simulacion.id);
+    expect(despues).toHaveLength(8);
+    expect(despues.map((seccion) => seccion.asignatura.codigo)).toContain("MAT101");
     db.close();
   });
 });
