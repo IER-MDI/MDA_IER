@@ -2,6 +2,7 @@ import express, { type Express } from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { BaseDatos } from "./db/conexion";
+import { crearRutasMalla } from "./rutas/malla";
 import { crearRutasPlanificador } from "./rutas/planificador";
 
 const aqui = path.dirname(fileURLToPath(import.meta.url));
@@ -17,6 +18,7 @@ export function crearApp(db: BaseDatos): Express {
   });
 
   app.use(crearRutasPlanificador(db));
+  app.use(crearRutasMalla(db));
 
   return app;
 }

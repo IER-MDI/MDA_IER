@@ -44,6 +44,23 @@ export interface MetricasSeccion {
   dificultad: number | null;
 }
 
+export type ResultadoAsignatura = "aprobada" | "reprobada" | "en curso";
+
+export type EstadoAsignatura = "aprobada" | "disponible" | "bloqueada";
+
+export interface AsignaturaEnMalla {
+  id: number;
+  codigo: string;
+  nombre: string;
+  creditos: number;
+  semestreSugerido: number;
+}
+
+export interface CadenaAsignatura {
+  prerrequisitos: number[];
+  dependientes: number[];
+}
+
 export const DIAS = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"] as const;
 
 export const ETIQUETAS_DIA: Record<string, string> = {

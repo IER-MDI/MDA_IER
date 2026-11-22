@@ -125,6 +125,23 @@ const ASIGNATURAS: AsignaturaSemilla[] = [
   },
 ];
 
+const ASIGNATURAS_SIN_SECCION = [
+  { codigo: "ECU301", nombre: "Ecuaciones Diferenciales", creditos: 6, semestre: 3 },
+];
+
+const PRERREQUISITOS: [codigo: string, prerrequisito: string][] = [
+  ["MAT102", "MAT101"],
+  ["ECU301", "MAT102"],
+  ["BD101", "PROG101"],
+];
+
+const AVANCE: { codigoAsignatura: string; resultado: "aprobada" | "reprobada" | "en curso"; periodo: string }[] = [
+  { codigoAsignatura: "MAT101", resultado: "aprobada", periodo: "2026-1" },
+  { codigoAsignatura: "FIS101", resultado: "aprobada", periodo: "2026-1" },
+  { codigoAsignatura: "PROG101", resultado: "aprobada", periodo: "2026-1" },
+  { codigoAsignatura: "ING101", resultado: "en curso", periodo: "2026-2" },
+];
+
 const EVALUACIONES: EvaluacionSemilla[] = [
   { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 5, dificultad: 4 },
   { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 3, dificultad: 4 },
@@ -143,6 +160,7 @@ export function sembrar(db: BaseDatos): void {
     db.prepare(
       "INSERT INTO estudiante (nombre, rut, carrera_id) VALUES (?, ?, ?) ON CONFLICT (rut) DO NOTHING"
     ).run(ESTUDIANTE.nombre, ESTUDIANTE.rut, carreraId);
+    const estudianteId = idDe(db, "SELECT id FROM estudiante WHERE rut = ?", ESTUDIANTE.rut);
 
     db.prepare(
       "INSERT INTO oferta_academica (periodo, fecha_publicacion) VALUES (?, ?) ON CONFLICT (periodo) DO NOTHING"
@@ -176,6 +194,39 @@ export function sembrar(db: BaseDatos): void {
       for (const [dia, horaInicio, horaFin] of asignatura.bloques) {
         insertarBloque.run(seccionId, dia, horaInicio, horaFin);
       }
+    }
+
+    for (const asignatura of ASIGNATURAS_SIN_SECCION) {
+      insertarAsignatura.run(asignatura.codigo, asignatura.nombre, asignatura.creditos, asignatura.semestre);
+    }
+
+    db.prepare(
+      "INSERT INTO carrera_asignatura (carrera_id, asignatura_id) " +
+        "SELECT ?, id FROM asignatura WHERE true ON CONFLICT (carrera_id, asignatura_id) DO NOTHING"
+    ).run(carreraId);
+
+    const insertarPrerrequisito = db.prepare(
+      "INSERT INTO asignatura_prerrequisito (asignatura_id, prerrequisito_id) VALUES (?, ?) " +
+        "ON CONFLICT (asignatura_id, prerrequisito_id) DO NOTHING"
+    );
+    for (const [codigo, codigoPrerrequisito] of PRERREQUISITOS) {
+      insertarPrerrequisito.run(
+        idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", codigo),
+        idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", codigoPrerrequisito)
+      );
+    }
+
+    const insertarAvance = db.prepare(
+      "INSERT INTO asignatura_cursada (estudiante_id, asignatura_id, resultado, periodo) VALUES (?, ?, ?, ?) " +
+        "ON CONFLICT (estudiante_id, asignatura_id) DO NOTHING"
+    );
+    for (const registro of AVANCE) {
+      insertarAvance.run(
+        estudianteId,
+        idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", registro.codigoAsignatura),
+        registro.resultado,
+        registro.periodo
+      );
     }
 
     const evaluacionesExistentes = db.prepare("SELECT COUNT(*) AS total FROM evaluacion").get() as {
@@ -218,9 +269,15 @@ if (ejecutadoDirectamente) {
   const secciones = db.prepare("SELECT COUNT(*) AS total FROM seccion").get() as { total: number };
   const bloques = db.prepare("SELECT COUNT(*) AS total FROM bloque_horario").get() as { total: number };
   const evaluaciones = db.prepare("SELECT COUNT(*) AS total FROM evaluacion").get() as { total: number };
+  const malla = db.prepare("SELECT COUNT(*) AS total FROM carrera_asignatura").get() as { total: number };
+  const prerrequisitos = db
+    .prepare("SELECT COUNT(*) AS total FROM asignatura_prerrequisito")
+    .get() as { total: number };
+  const avance = db.prepare("SELECT COUNT(*) AS total FROM asignatura_cursada").get() as { total: number };
   console.log(
-    `Datos de ejemplo cargados: ${secciones.total} secciones, ${bloques.total} bloques horarios y ` +
-      `${evaluaciones.total} evaluaciones.`
+    `Datos de ejemplo cargados: ${secciones.total} secciones, ${bloques.total} bloques horarios, ` +
+      `${evaluaciones.total} evaluaciones, ${malla.total} asignaturas en la malla, ` +
+      `${prerrequisitos.total} prerrequisitos y ${avance.total} registros de avance.`
   );
   db.close();
 }

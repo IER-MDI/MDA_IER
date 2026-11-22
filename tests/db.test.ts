@@ -46,7 +46,7 @@ describe("Base de datos", () => {
 
     expect(secciones.total).toBe(8);
     expect(bloques.total).toBe(15);
-    expect(migraciones.total).toBe(2);
+    expect(migraciones.total).toBe(3);
     expect(evaluaciones.total).toBe(3);
     expect(evaluacionesMat101.total).toBe(3);
     expect(sumaCreditos(db, ["MAT101", "MAT102"])).toBe(11);

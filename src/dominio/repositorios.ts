@@ -1,6 +1,13 @@
 import type { BaseDatos } from "../db/conexion";
 import { redondearUnDecimal } from "./metricas";
-import type { Bloque, MetricasSeccion, Seccion, Simulacion } from "./tipos";
+import type {
+  AsignaturaEnMalla,
+  Bloque,
+  MetricasSeccion,
+  ResultadoAsignatura,
+  Seccion,
+  Simulacion,
+} from "./tipos";
 
 interface FilaSeccion {
   id: number;
@@ -32,6 +39,24 @@ interface FilaMetricas {
   total: number;
   valoracion: number | null;
   dificultad: number | null;
+}
+
+interface FilaMalla {
+  id: number;
+  codigo: string;
+  nombre: string;
+  creditos: number;
+  semestre_sugerido: number;
+}
+
+interface FilaPrerrequisito {
+  asignatura_id: number;
+  prerrequisito_id: number;
+}
+
+interface FilaAvance {
+  asignatura_id: number;
+  resultado: ResultadoAsignatura;
 }
 
 const SELECT_SECCION =
@@ -185,6 +210,59 @@ export function obtenerTopeCreditos(db: BaseDatos, estudianteId: number): number
     throw new Error("No se encontró la carrera del estudiante");
   }
   return fila.tope;
+}
+
+export function obtenerCarreraDelEstudiante(
+  db: BaseDatos,
+  estudianteId: number
+): { id: number; nombre: string } | null {
+  const fila = db
+    .prepare(
+      "SELECT c.id, c.nombre FROM estudiante e JOIN carrera c ON c.id = e.carrera_id WHERE e.id = ?"
+    )
+    .get(estudianteId) as { id: number; nombre: string } | undefined;
+  return fila ?? null;
+}
+
+export function listarMalla(db: BaseDatos, carreraId: number): AsignaturaEnMalla[] {
+  const filas = db
+    .prepare(
+      "SELECT a.id, a.codigo, a.nombre, a.creditos, a.semestre_sugerido " +
+        "FROM carrera_asignatura ca JOIN asignatura a ON a.id = ca.asignatura_id " +
+        "WHERE ca.carrera_id = ? ORDER BY a.semestre_sugerido, a.codigo"
+    )
+    .all(carreraId) as FilaMalla[];
+  return filas.map((fila) => ({
+    id: fila.id,
+    codigo: fila.codigo,
+    nombre: fila.nombre,
+    creditos: fila.creditos,
+    semestreSugerido: fila.semestre_sugerido,
+  }));
+}
+
+export function listarPrerrequisitos(db: BaseDatos): Map<number, number[]> {
+  const filas = db
+    .prepare(
+      "SELECT asignatura_id, prerrequisito_id FROM asignatura_prerrequisito " +
+        "ORDER BY asignatura_id, prerrequisito_id"
+    )
+    .all() as FilaPrerrequisito[];
+
+  const mapa = new Map<number, number[]>();
+  for (const fila of filas) {
+    const lista = mapa.get(fila.asignatura_id) ?? [];
+    lista.push(fila.prerrequisito_id);
+    mapa.set(fila.asignatura_id, lista);
+  }
+  return mapa;
+}
+
+export function listarAvance(db: BaseDatos, estudianteId: number): Map<number, ResultadoAsignatura> {
+  const filas = db
+    .prepare("SELECT asignatura_id, resultado FROM asignatura_cursada WHERE estudiante_id = ?")
+    .all(estudianteId) as FilaAvance[];
+  return new Map(filas.map((fila) => [fila.asignatura_id, fila.resultado]));
 }
 
 export function obtenerMetricasSeccion(

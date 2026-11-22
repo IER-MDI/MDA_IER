@@ -1,10 +1,14 @@
 <header>
   <div>
-    <h1>SGAI — Planificador de horario</h1>
+    <h1><%= locals.tituloPagina || "SGAI — Planificador de horario" %></h1>
     <div class="datos">
       <%= estudiante.nombre %> · Rol: <span class="rol"><%= rolEtiqueta %></span>
     </div>
   </div>
+  <nav class="navegacion">
+    <a href="/planificador">Planificador</a>
+    <a href="/malla">Malla</a>
+  </nav>
   <form method="post" action="/rol" class="en-linea">
     <label for="rol">Rol de demostración</label>
     <select id="rol" name="rol">
