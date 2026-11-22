@@ -23,6 +23,7 @@ describe("Base de datos", () => {
         "bloque_horario",
         "simulacion",
         "simulacion_seccion",
+        "evaluacion",
       ])
     );
     db.close();
@@ -35,10 +36,19 @@ describe("Base de datos", () => {
     const secciones = db.prepare("SELECT COUNT(*) AS total FROM seccion").get() as { total: number };
     const bloques = db.prepare("SELECT COUNT(*) AS total FROM bloque_horario").get() as { total: number };
     const migraciones = db.prepare("SELECT COUNT(*) AS total FROM schema_migrations").get() as { total: number };
+    const evaluaciones = db.prepare("SELECT COUNT(*) AS total FROM evaluacion").get() as { total: number };
+    const evaluacionesMat101 = db
+      .prepare(
+        "SELECT COUNT(*) AS total FROM evaluacion e " +
+          "JOIN asignatura a ON a.id = e.asignatura_id WHERE a.codigo = 'MAT101'"
+      )
+      .get() as { total: number };
 
     expect(secciones.total).toBe(8);
     expect(bloques.total).toBe(15);
-    expect(migraciones.total).toBe(1);
+    expect(migraciones.total).toBe(2);
+    expect(evaluaciones.total).toBe(3);
+    expect(evaluacionesMat101.total).toBe(3);
     expect(sumaCreditos(db, ["MAT101", "MAT102"])).toBe(11);
     expect(sumaCreditos(db, ["MAT101", "PROG101", "BD101", "ING101", "ECO101"])).toBe(28);
     db.close();

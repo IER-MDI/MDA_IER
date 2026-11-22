@@ -29,6 +29,21 @@ export interface Simulacion {
   estado: string;
 }
 
+export interface Evaluacion {
+  id: number;
+  asignaturaId: number;
+  docente: string;
+  calificacionDocente: number;
+  dificultadPercibida: number;
+  comentario: string | null;
+}
+
+export interface MetricasSeccion {
+  total: number;
+  valoracionDocente: number | null;
+  dificultad: number | null;
+}
+
 export const DIAS = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"] as const;
 
 export const ETIQUETAS_DIA: Record<string, string> = {

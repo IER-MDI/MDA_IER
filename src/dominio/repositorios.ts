@@ -1,5 +1,6 @@
 import type { BaseDatos } from "../db/conexion";
-import type { Bloque, Seccion, Simulacion } from "./tipos";
+import { redondearUnDecimal } from "./metricas";
+import type { Bloque, MetricasSeccion, Seccion, Simulacion } from "./tipos";
 
 interface FilaSeccion {
   id: number;
@@ -25,6 +26,12 @@ interface FilaSimulacion {
   estudiante_id: number;
   nombre: string;
   estado: string;
+}
+
+interface FilaMetricas {
+  total: number;
+  valoracion: number | null;
+  dificultad: number | null;
 }
 
 const SELECT_SECCION =
@@ -178,4 +185,28 @@ export function obtenerTopeCreditos(db: BaseDatos, estudianteId: number): number
     throw new Error("No se encontró la carrera del estudiante");
   }
   return fila.tope;
+}
+
+export function obtenerMetricasSeccion(
+  db: BaseDatos,
+  asignaturaId: number,
+  docente: string
+): MetricasSeccion {
+  const fila = db
+    .prepare(
+      "SELECT COUNT(*) AS total, AVG(calificacion_docente) AS valoracion, " +
+        "AVG(dificultad_percibida) AS dificultad FROM evaluacion " +
+        "WHERE asignatura_id = ? AND docente = ?"
+    )
+    .get(asignaturaId, docente) as FilaMetricas;
+
+  if (fila.total === 0 || fila.valoracion === null || fila.dificultad === null) {
+    return { total: 0, valoracionDocente: null, dificultad: null };
+  }
+
+  return {
+    total: fila.total,
+    valoracionDocente: redondearUnDecimal(fila.valoracion),
+    dificultad: redondearUnDecimal(fila.dificultad),
+  };
 }

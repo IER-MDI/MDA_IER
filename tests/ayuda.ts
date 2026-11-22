@@ -7,6 +7,16 @@ export function baseSembrada(): BaseDatos {
   return db;
 }
 
+export function idAsignatura(db: BaseDatos, codigo: string): number {
+  const fila = db.prepare("SELECT id FROM asignatura WHERE codigo = ?").get(codigo) as
+    | { id: number }
+    | undefined;
+  if (!fila) {
+    throw new Error(`No hay asignatura sembrada con código ${codigo}`);
+  }
+  return fila.id;
+}
+
 export function idSeccion(db: BaseDatos, codigoAsignatura: string): number {
   const fila = db
     .prepare(

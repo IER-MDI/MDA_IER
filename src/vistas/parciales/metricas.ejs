@@ -1,0 +1,9 @@
+<% if (metricas.total === 0) { %>
+<td colspan="2" class="vacio">Sin evaluaciones</td>
+<% } else { %>
+<td>
+  <span class="estrellas" aria-label="Valoración del docente"><%= metricas.estrellas %></span>
+  <%= metricas.valoracionTexto %> de 5
+</td>
+<td><%= metricas.dificultadTexto %> de 5</td>
+<% } %>

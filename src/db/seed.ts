@@ -13,6 +13,14 @@ interface AsignaturaSemilla {
   bloques: BloqueSemilla[];
 }
 
+interface EvaluacionSemilla {
+  codigoAsignatura: string;
+  docente: string;
+  calificacion: number;
+  dificultad: number;
+  comentario?: string;
+}
+
 const CARRERA = {
   nombre: "Ingeniería Civil Informática",
   duracionSemestres: 10,
@@ -117,6 +125,12 @@ const ASIGNATURAS: AsignaturaSemilla[] = [
   },
 ];
 
+const EVALUACIONES: EvaluacionSemilla[] = [
+  { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 5, dificultad: 4 },
+  { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 3, dificultad: 4 },
+  { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 4, dificultad: 5 },
+];
+
 export function sembrar(db: BaseDatos): void {
   db.transaction(() => {
     db.prepare(
@@ -163,6 +177,26 @@ export function sembrar(db: BaseDatos): void {
         insertarBloque.run(seccionId, dia, horaInicio, horaFin);
       }
     }
+
+    const evaluacionesExistentes = db.prepare("SELECT COUNT(*) AS total FROM evaluacion").get() as {
+      total: number;
+    };
+    if (evaluacionesExistentes.total === 0) {
+      const insertarEvaluacion = db.prepare(
+        "INSERT INTO evaluacion (asignatura_id, docente, calificacion_docente, dificultad_percibida, comentario) " +
+          "VALUES (?, ?, ?, ?, ?)"
+      );
+      for (const evaluacion of EVALUACIONES) {
+        const asignaturaId = idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", evaluacion.codigoAsignatura);
+        insertarEvaluacion.run(
+          asignaturaId,
+          evaluacion.docente,
+          evaluacion.calificacion,
+          evaluacion.dificultad,
+          evaluacion.comentario ?? null
+        );
+      }
+    }
   })();
 }
 
@@ -183,6 +217,10 @@ if (ejecutadoDirectamente) {
   sembrar(db);
   const secciones = db.prepare("SELECT COUNT(*) AS total FROM seccion").get() as { total: number };
   const bloques = db.prepare("SELECT COUNT(*) AS total FROM bloque_horario").get() as { total: number };
-  console.log(`Datos de ejemplo cargados: ${secciones.total} secciones y ${bloques.total} bloques horarios.`);
+  const evaluaciones = db.prepare("SELECT COUNT(*) AS total FROM evaluacion").get() as { total: number };
+  console.log(
+    `Datos de ejemplo cargados: ${secciones.total} secciones, ${bloques.total} bloques horarios y ` +
+      `${evaluaciones.total} evaluaciones.`
+  );
   db.close();
 }

@@ -8,6 +8,8 @@
         <th>Docente</th>
         <th>Créditos</th>
         <th>Horario</th>
+        <th>Valoración docente</th>
+        <th>Dificultad</th>
         <th></th>
       </tr>
     </thead>
@@ -19,6 +21,7 @@
         <td><%= seccion.docente %></td>
         <td><%= seccion.asignatura.creditos %></td>
         <td><%= seccion.horarioTexto %></td>
+        <%- include("metricas", { metricas: seccion.metricas }) %>
         <td>
           <form method="post" action="/planificador/secciones" class="en-linea">
             <input type="hidden" name="seccion_id" value="<%= seccion.id %>" />
@@ -44,6 +47,8 @@
         <th>Docente</th>
         <th>Créditos</th>
         <th>Horario</th>
+        <th>Valoración docente</th>
+        <th>Dificultad</th>
         <th></th>
       </tr>
     </thead>
@@ -55,6 +60,7 @@
         <td><%= seccion.docente %></td>
         <td><%= seccion.asignatura.creditos %></td>
         <td><%= seccion.horarioTexto %></td>
+        <%- include("metricas", { metricas: seccion.metricas }) %>
         <td>
           <form method="post" action="/planificador/secciones/<%= seccion.id %>/eliminar" class="en-linea">
             <button type="submit">Quitar</button>

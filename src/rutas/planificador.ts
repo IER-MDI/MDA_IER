@@ -1,9 +1,11 @@
 import { Router } from "express";
 import type { BaseDatos } from "../db/conexion";
 import { textoHorario } from "../dominio/horario";
+import { dibujarEstrellas, formatearNota } from "../dominio/metricas";
 import {
   listarSeccionesDisponibles,
   obtenerEstudianteDemo,
+  obtenerMetricasSeccion,
   obtenerTopeCreditos,
 } from "../dominio/repositorios";
 import { DIAS, ETIQUETAS_DIA, FRANJAS, type Seccion } from "../dominio/tipos";
@@ -28,11 +30,21 @@ function leerCookie(cabecera: string | undefined, nombre: string): string | unde
   return undefined;
 }
 
-function seccionesParaVista(secciones: Seccion[]) {
-  return secciones.map((seccion) => ({
-    ...seccion,
-    horarioTexto: textoHorario(seccion.bloques),
-  }));
+function seccionesParaVista(db: BaseDatos, secciones: Seccion[]) {
+  return secciones.map((seccion) => {
+    const metricas = obtenerMetricasSeccion(db, seccion.asignatura.id, seccion.docente);
+    return {
+      ...seccion,
+      horarioTexto: textoHorario(seccion.bloques),
+      metricas: {
+        ...metricas,
+        valoracionTexto:
+          metricas.valoracionDocente === null ? null : formatearNota(metricas.valoracionDocente),
+        dificultadTexto: metricas.dificultad === null ? null : formatearNota(metricas.dificultad),
+        estrellas: metricas.valoracionDocente === null ? null : dibujarEstrellas(metricas.valoracionDocente),
+      },
+    };
+  });
 }
 
 export function crearRutasPlanificador(db: BaseDatos): Router {
@@ -81,8 +93,8 @@ export function crearRutasPlanificador(db: BaseDatos): Router {
     res.render("planificador", {
       estudiante,
       simulacion,
-      secciones: seccionesParaVista(secciones),
-      incluidas: seccionesParaVista(incluidas),
+      secciones: seccionesParaVista(db, secciones),
+      incluidas: seccionesParaVista(db, incluidas),
       grilla,
       totalCreditos,
       tope,
