@@ -11,9 +11,9 @@
 **Sistema de Gestión Académica e Inscripción Interactiva (SGAI)**
 Plataforma orientada a optimizar el proceso de preinscripción e inscripción de asignaturas universitarias mediante la automatización de la consolidación de oferta académica, visualización de carga de trabajo, simulación interactiva de horarios, proyección completa del avance curricular y centralización de evaluaciones y dificultad percibida por los estudiantes.
 
-## Aplicación web (HU-02 — Planificador · HU-03 — Referencias comunitarias)
+## Aplicación web (HU-02 — Planificador · HU-03 — Referencias comunitarias · HU-05 — Tiempo restante)
 
-Aplicación TypeScript + Express + EJS con SQLite. Por ahora implementa la simulación de horario de HU-02 y la consulta de valoración docente y dificultad de HU-03, con datos de ejemplo de la oferta 2026-2 (la carga de Excel llegará con HU-01).
+Aplicación TypeScript + Express + EJS con SQLite. Implementa la simulación de horario de HU-02, la consulta de valoración docente y dificultad de HU-03 y la estimación de semestres restantes de HU-05, con datos de ejemplo de la oferta 2026-2 (la carga de Excel llegará con HU-01).
 
 ### Requisitos
 - Node.js 20 o superior (probado con Node 26)
@@ -33,7 +33,7 @@ Abre `http://localhost:3000`. La base se crea en `data/app.db` y los datos de ej
 npm test
 ```
 
-Corre las pruebas de los escenarios Gherkin de HU-02 y HU-03, la remoción de secciones, el solapamiento de bloques, los promedios de evaluaciones y las rutas HTTP.
+Corre las pruebas de los escenarios Gherkin de HU-02, HU-03 y HU-05, la remoción de secciones, el solapamiento de bloques, los promedios de evaluaciones, la ruta crítica de prerrequisitos y las rutas HTTP.
 
 ### Datos de ejemplo
 Carrera «Ingeniería Civil Informática» con tope de **30 créditos** y un estudiante demo («Mi horario», estado «en armado»).
@@ -59,6 +59,14 @@ Evaluaciones de ejemplo, anónimas y sin vínculo con el estudiante:
 
 MAT101 queda con **4,0** de valoración docente y **4,3** de dificultad. MAT102, dictada por la misma docente, no tiene evaluaciones y muestra «Sin evaluaciones».
 
+### Malla y avance de ejemplo (HU-05)
+
+La malla tiene 12 asignaturas. El avance del estudiante demo registra como **aprobadas** MAT101 Cálculo I, MAT201 Álgebra Lineal, FIS101 Física I y PROG101 Programación. La cadena pendiente más larga es:
+
+`MAT102 Cálculo II → MAT202 Ecuaciones Diferenciales → MAT301 Análisis Numérico → MAT401 Proyecto de Título`
+
+Como son 4 asignaturas sucesivas, el mínimo estimado es de **4 semestres**. BD101 y ECO101 son pendientes cortos (no críticos): postergarlos no cambia el mínimo.
+
 ### Recorrido manual de los escenarios
 1. **Créditos:** agrega MAT101 (5) y luego MAT102 (6). El total debe mostrar **11 de 30 créditos** y ambas secciones en la grilla.
 2. **Choque:** con MAT101 en el horario, intenta agregar FIS101. Debe aparecer «Choque de horario con Cálculo I sección 1» y el total seguir en 11.
@@ -70,6 +78,12 @@ MAT101 queda con **4,0** de valoración docente y **4,3** de dificultad. MAT102,
 6. **Sin evaluaciones:** busca MAT102 / Prof. Ana Pérez (misma docente, otra asignatura); debe mostrar «Sin evaluaciones» y ningún valor numérico.
 7. **Anonimato:** las evaluaciones no muestran ni guardan la identidad de quien las emitió.
 
+### Recorrido manual de HU-05
+
+8. **Mínimo:** desde el planificador pulsa «Tiempo restante para titularse» (o abre `http://localhost:3000/tiempo-restante`). Debe mostrar **Mínimo estimado: 4 semestres** y MAT102, MAT202, MAT301 y MAT401 marcadas como críticas.
+9. **Simular reprobación:** selecciona MAT202, deja «Reprobar» y pulsa «Simular». El mínimo debe pasar a **5 semestres** y aparecer **Retraso: 1 semestre**.
+10. **Simular postergación no crítica:** selecciona BD101, elige «Postergar» y pulsa «Simular». El mínimo vuelve a **4 semestres** y el retraso es **0**. La simulación no se guarda: al volver a `/tiempo-restante` reaparece el valor base.
+
 ### Estructura
 ```text
 src/app.ts                  # aplicación Express (sin escuchar, para pruebas)
@@ -77,9 +91,10 @@ src/server.ts               # arranca el servidor en el puerto 3000
 src/db/conexion.ts          # SQLite + migraciones
 src/db/migrations/          # migraciones SQL numeradas
 src/db/seed.ts              # datos de ejemplo idempotentes
-src/dominio/                # tipos, horario, métricas y repositorios
+src/dominio/                # tipos, horario, métricas, repositorios y ruta crítica
 src/servicios/simulacion.ts # alta, baja, créditos y validaciones
-src/rutas/planificador.ts   # rutas y mensajes
+src/rutas/planificador.ts   # rutas y mensajes del simulador
+src/rutas/tiempo-restante.ts # consulta y simulación de semestres restantes
 src/vistas/                 # plantillas EJS
 tests/                      # pruebas Vitest + supertest
 ```
@@ -87,4 +102,5 @@ tests/                      # pruebas Vitest + supertest
 ### Notas
 - No hay autenticación real: la cabecera tiene un selector de rol de demostración.
 - RP-11 se aplica solo como anonimato (no se guarda ni muestra la identidad); el resto de los requisitos no funcionales se leen como contexto y no se implementan.
-- Fuera de alcance: registrar evaluaciones o moderar comentarios (RP-12), carga de Excel (HU-01), malla y tiempo restante (HU-04, HU-05) y confirmar/exportar la simulación.
+- La simulación de reprobación/postergación de HU-05 no se guarda: viaja en la URL y se recalcula al mostrar la pantalla.
+- Fuera de alcance: registrar evaluaciones o moderar comentarios (RP-12), carga de Excel (HU-01), malla interactiva y cadena de prerrequisitos resaltada (HU-04) y confirmar/exportar la simulación.

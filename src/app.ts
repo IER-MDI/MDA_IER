@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { BaseDatos } from "./db/conexion";
 import { crearRutasPlanificador } from "./rutas/planificador";
+import { crearRutasTiempoRestante } from "./rutas/tiempo-restante";
 
 const aqui = path.dirname(fileURLToPath(import.meta.url));
 
@@ -17,6 +18,7 @@ export function crearApp(db: BaseDatos): Express {
   });
 
   app.use(crearRutasPlanificador(db));
+  app.use(crearRutasTiempoRestante(db));
 
   return app;
 }

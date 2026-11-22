@@ -23,6 +23,7 @@
 - 2026-11-20 (confirmado por el estudiante): para la numeración de casos de uso se toma como fuente de verdad la tabla de `09-casos-uso.md` (HU-01: CU-01..CU-04; HU-02: CU-05..CU-10; HU-03: CU-11..CU-12; HU-04: CU-13..CU-14; HU-05: CU-14..CU-15), dejando constancia de que `CU-14` está duplicado y se resolverá al validar HU-04/HU-05.
 - 2026-11-20 (confirmado por el estudiante): el contenido de DSS-02 (HU-02) no es verificable (solo imagen remota de GitHub); el flujo de interacción se reconstruirá con el estudiante durante la validación de HU-02.
 - 2026-11-20 (confirmado por el estudiante): `12-trazabilidad.md` está desactualizado respecto de `09-casos-uso.md`; se prioriza `09-casos-uso.md`.
+- 2026-11-22 (confirmado por el estudiante): HU-05 se implementa con la malla y el avance del `seed` porque HU-01 y HU-04 están pendientes; «reprobar» y «postergar» tienen el mismo efecto y la simulación no se persiste.
 
 ## Stack (se define una sola vez)
 - Lenguaje y framework: TypeScript + Express (plantillas EJS)
@@ -39,7 +40,7 @@
 | HU-02 | implementada y validada | hu-02-planificador-grilla + ajuste-hu-02-oferta-seccion-agregada | 2026-11-20 | Datos de ejemplo; simulación activa única; OBS-1 resuelta |
 | HU-03 | implementada y validada | hu-03-metricas-dificultad | 2026-11-21 | CU-11/CU-12; métricas por asignatura + docente; solo MAT101 con evaluaciones de ejemplo |
 | HU-04 | pendiente | — | — | Depende de datos de malla y avance |
-| HU-05 | pendiente | — | — | Depende de HU-04 (malla y prerrequisitos) |
+| HU-05 | implementada, pendiente de validación | hu-05-tiempo-restante | 2026-11-22 | CU-14/CU-15; ruta crítica sobre malla sembrada; simulación no persistida |
 
 ## Validaciones
 | Historia | Informe | Estado | Fecha |

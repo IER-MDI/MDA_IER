@@ -21,6 +21,13 @@ interface EvaluacionSemilla {
   comentario?: string;
 }
 
+interface AsignaturaMallaSemilla {
+  codigo: string;
+  nombre: string;
+  creditos: number;
+  semestre: number;
+}
+
 const CARRERA = {
   nombre: "Ingeniería Civil Informática",
   duracionSemestres: 10,
@@ -131,6 +138,29 @@ const EVALUACIONES: EvaluacionSemilla[] = [
   { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 4, dificultad: 5 },
 ];
 
+const ASIGNATURAS_MALLA: AsignaturaMallaSemilla[] = [
+  { codigo: "MAT201", nombre: "Álgebra Lineal", creditos: 6, semestre: 2 },
+  { codigo: "MAT202", nombre: "Ecuaciones Diferenciales", creditos: 6, semestre: 3 },
+  { codigo: "MAT301", nombre: "Análisis Numérico", creditos: 6, semestre: 5 },
+  { codigo: "MAT401", nombre: "Proyecto de Título", creditos: 8, semestre: 8 },
+];
+
+const PRERREQUISITOS: [codigo: string, prerrequisito: string][] = [
+  ["MAT102", "MAT101"],
+  ["MAT202", "MAT102"],
+  ["MAT202", "MAT201"],
+  ["MAT301", "MAT202"],
+  ["MAT401", "MAT301"],
+  ["BD101", "PROG101"],
+];
+
+const APROBADAS: { codigo: string; periodo: string }[] = [
+  { codigo: "MAT101", periodo: "2025-1" },
+  { codigo: "MAT201", periodo: "2025-2" },
+  { codigo: "FIS101", periodo: "2025-2" },
+  { codigo: "PROG101", periodo: "2025-2" },
+];
+
 export function sembrar(db: BaseDatos): void {
   db.transaction(() => {
     db.prepare(
@@ -178,6 +208,42 @@ export function sembrar(db: BaseDatos): void {
       }
     }
 
+    const estudianteId = idDe(db, "SELECT id FROM estudiante WHERE rut = ?", ESTUDIANTE.rut);
+    const insertarAsignaturaMalla = db.prepare(
+      "INSERT INTO asignatura (codigo, nombre, creditos, semestre_sugerido) VALUES (?, ?, ?, ?) " +
+        "ON CONFLICT (codigo) DO NOTHING"
+    );
+    const insertarEnMalla = db.prepare(
+      "INSERT OR IGNORE INTO carrera_asignatura (carrera_id, asignatura_id) VALUES (?, ?)"
+    );
+
+    for (const asignatura of ASIGNATURAS_MALLA) {
+      insertarAsignaturaMalla.run(asignatura.codigo, asignatura.nombre, asignatura.creditos, asignatura.semestre);
+    }
+    for (const codigo of [...ASIGNATURAS.map((asignatura) => asignatura.codigo), ...ASIGNATURAS_MALLA.map((asignatura) => asignatura.codigo)]) {
+      insertarEnMalla.run(carreraId, idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", codigo));
+    }
+
+    const insertarPrerrequisito = db.prepare(
+      "INSERT OR IGNORE INTO prerrequisito (asignatura_id, prerrequisito_id) VALUES (?, ?)"
+    );
+    for (const [codigo, prerrequisito] of PRERREQUISITOS) {
+      insertarPrerrequisito.run(
+        idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", codigo),
+        idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", prerrequisito)
+      );
+    }
+
+    const insertarCursada = db.prepare(
+      "INSERT INTO asignatura_cursada (estudiante_id, asignatura_id, resultado, periodo) " +
+        "SELECT ?, ?, 'aprobada', ? WHERE NOT EXISTS " +
+        "(SELECT 1 FROM asignatura_cursada WHERE estudiante_id = ? AND asignatura_id = ?)"
+    );
+    for (const aprobada of APROBADAS) {
+      const asignaturaId = idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", aprobada.codigo);
+      insertarCursada.run(estudianteId, asignaturaId, aprobada.periodo, estudianteId, asignaturaId);
+    }
+
     const evaluacionesExistentes = db.prepare("SELECT COUNT(*) AS total FROM evaluacion").get() as {
       total: number;
     };
@@ -218,9 +284,11 @@ if (ejecutadoDirectamente) {
   const secciones = db.prepare("SELECT COUNT(*) AS total FROM seccion").get() as { total: number };
   const bloques = db.prepare("SELECT COUNT(*) AS total FROM bloque_horario").get() as { total: number };
   const evaluaciones = db.prepare("SELECT COUNT(*) AS total FROM evaluacion").get() as { total: number };
+  const malla = db.prepare("SELECT COUNT(*) AS total FROM carrera_asignatura").get() as { total: number };
+  const cursadas = db.prepare("SELECT COUNT(*) AS total FROM asignatura_cursada").get() as { total: number };
   console.log(
-    `Datos de ejemplo cargados: ${secciones.total} secciones, ${bloques.total} bloques horarios y ` +
-      `${evaluaciones.total} evaluaciones.`
+    `Datos de ejemplo cargados: ${secciones.total} secciones, ${bloques.total} bloques horarios, ` +
+      `${evaluaciones.total} evaluaciones, ${malla.total} asignaturas en la malla y ${cursadas.total} registros de avance.`
   );
   db.close();
 }

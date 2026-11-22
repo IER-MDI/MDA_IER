@@ -37,3 +37,5 @@ Como **estudiante**, quiero **conocer la cantidad mínima estimada de semestres 
 - **Criterios de aceptación:**
   - **CA1:** El sistema analiza los ramos aprobados y calcula la ruta crítica mínima de semestres necesarios para titularse.
   - **CA2:** Si se simula reprobar o postergar un ramo, el indicador refleja el potencial retraso en semestres.
+  - **CA3:** El sistema señala qué asignaturas pendientes son cursables —todos sus prerrequisitos están aprobados— y cuáles están bloqueadas por falta de requisitos. El texto de asignaturas cursables no incluye las bloqueadas, que siguen visibles en el listado con ese estado.
+  - **CA4:** El sistema clasifica cada asignatura pendiente con una prioridad: **crítica** si pertenece a la cadena más larga de prerrequisitos y retrasa la titulación; **necesaria** si es prerrequisito de otra asignatura pendiente fuera de esa cadena y afecta el avance desde el próximo semestre; **postergable** si no tiene dependientes pendientes y no afecta el tiempo de titulación.

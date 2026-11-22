@@ -16,7 +16,8 @@ context: |
   Fichas confirmadas de cada historia en .cin324/historias/HU-xx.md: son el insumo de cada propuesta.
   Alcance: una historia por cambio. No se implementan requisitos no funcionales ni autenticación real
   (usar selector de rol de demostración). Los sistemas externos se simulan mediante adaptadores.
-  Hasta que exista HU-01, la oferta académica se carga con datos de ejemplo.
+  Hasta que exista HU-01, la oferta académica se carga con datos de ejemplo. Hasta que exista HU-04,
+  la malla curricular y el avance del estudiante se cargan con datos de ejemplo.
 
 rules:
   proposal:

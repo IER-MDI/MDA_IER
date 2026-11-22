@@ -124,6 +124,7 @@ Característica: Estimación del tiempo restante de titulación
     Dado un estudiante cuyas asignaturas pendientes forman como máxima cadena de prerrequisitos 4 asignaturas sucesivas
     Cuando el estudiante consulta el tiempo restante para titularse
     Entonces el sistema informa que el mínimo estimado es de 4 semestres
+    Y muestra con prioridad crítica en la columna "Prioridad" a MAT102, MAT202, MAT301 y MAT401
 
   Escenario: Simular la reprobación de una asignatura crítica aumenta el tiempo restante
     Dado un estudiante con un mínimo estimado de 4 semestres restantes
@@ -131,5 +132,24 @@ Característica: Estimación del tiempo restante de titulación
     Cuando el estudiante simula reprobar esa asignatura
     Entonces el sistema informa que el mínimo estimado pasa a 5 semestres
     Y señala que el retraso es de 1 semestre
+
+  Escenario: Clasificar la prioridad de las asignaturas pendientes
+    Dado un estudiante con aprobadas MAT101, MAT201, FIS101 y PROG101 en la malla
+    Cuando el estudiante consulta el tiempo restante para titularse
+    Entonces el sistema muestra "crítica" en MAT102, MAT202, MAT301 y MAT401 por pertenecer a la cadena más larga de prerrequisitos
+    Y muestra "necesaria" en FIS201 por ser prerrequisito de FIS202, que está pendiente, sin pertenecer a la cadena más larga
+    Y muestra "postergable" en FIS202, ECO101 y BD101 por no tener dependientes pendientes
+
+  Escenario: Mostrar asignaturas cursables y bloqueadas
+    Dado un estudiante con aprobadas MAT101, MAT201, FIS101 y PROG101 en la malla
+    Cuando el estudiante consulta el tiempo restante para titularse
+    Entonces el texto "Cursables:" incluye MAT102, FIS201, PROG201 y ECO101 por tener todos sus prerrequisitos aprobados
+    Y ese texto no incluye MAT202, MAT301, MAT401, FIS202, PROG301 ni BD101 por tener prerrequisitos pendientes
+    Y el listado mantiene visibles esas asignaturas con el estado "Bloqueada"
+
+  Escenario: Mostrar el semestre de cada asignatura pendiente
+    Dado un estudiante que consulta el tiempo restante para titularse
+    Cuando ve el listado de asignaturas pendientes
+    Entonces cada asignatura muestra en la columna "Semestre" el semestre sugerido definido en la malla
 ```
     

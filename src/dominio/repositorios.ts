@@ -1,6 +1,13 @@
 import type { BaseDatos } from "../db/conexion";
 import { redondearUnDecimal } from "./metricas";
-import type { Bloque, MetricasSeccion, Seccion, Simulacion } from "./tipos";
+import type {
+  AsignaturaDeMalla,
+  Bloque,
+  MetricasSeccion,
+  Prerrequisito,
+  Seccion,
+  Simulacion,
+} from "./tipos";
 
 interface FilaSeccion {
   id: number;
@@ -32,6 +39,19 @@ interface FilaMetricas {
   total: number;
   valoracion: number | null;
   dificultad: number | null;
+}
+
+interface FilaAsignaturaMalla {
+  id: number;
+  codigo: string;
+  nombre: string;
+  creditos: number;
+  semestre_sugerido: number;
+}
+
+interface FilaPrerrequisito {
+  asignatura_id: number;
+  prerrequisito_id: number;
 }
 
 const SELECT_SECCION =
@@ -209,4 +229,52 @@ export function obtenerMetricasSeccion(
     valoracionDocente: redondearUnDecimal(fila.valoracion),
     dificultad: redondearUnDecimal(fila.dificultad),
   };
+}
+
+export function obtenerCarreraDelEstudiante(
+  db: BaseDatos,
+  estudianteId: number
+): { id: number; nombre: string } | null {
+  const fila = db
+    .prepare("SELECT c.id, c.nombre FROM estudiante e JOIN carrera c ON c.id = e.carrera_id WHERE e.id = ?")
+    .get(estudianteId) as { id: number; nombre: string } | undefined;
+  return fila ?? null;
+}
+
+export function listarAsignaturasDeMalla(db: BaseDatos, carreraId: number): AsignaturaDeMalla[] {
+  const filas = db
+    .prepare(
+      "SELECT a.id, a.codigo, a.nombre, a.creditos, a.semestre_sugerido " +
+        "FROM carrera_asignatura ca JOIN asignatura a ON a.id = ca.asignatura_id " +
+        "WHERE ca.carrera_id = ? ORDER BY a.codigo"
+    )
+    .all(carreraId) as FilaAsignaturaMalla[];
+  return filas.map((fila) => ({
+    id: fila.id,
+    codigo: fila.codigo,
+    nombre: fila.nombre,
+    creditos: fila.creditos,
+    semestreSugerido: fila.semestre_sugerido,
+  }));
+}
+
+export function listarCodigosAprobados(db: BaseDatos, estudianteId: number): string[] {
+  const filas = db
+    .prepare(
+      "SELECT DISTINCT a.codigo FROM asignatura_cursada ac " +
+        "JOIN asignatura a ON a.id = ac.asignatura_id " +
+        "WHERE ac.estudiante_id = ? AND ac.resultado = 'aprobada' ORDER BY a.codigo"
+    )
+    .all(estudianteId) as { codigo: string }[];
+  return filas.map((fila) => fila.codigo);
+}
+
+export function listarPrerrequisitos(db: BaseDatos): Prerrequisito[] {
+  const filas = db
+    .prepare("SELECT asignatura_id, prerrequisito_id FROM prerrequisito")
+    .all() as FilaPrerrequisito[];
+  return filas.map((fila) => ({
+    asignaturaId: fila.asignatura_id,
+    prerrequisitoId: fila.prerrequisito_id,
+  }));
 }

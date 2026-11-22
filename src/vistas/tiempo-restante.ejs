@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SGAI — Tiempo restante para titularse</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #f4f6f8;
+        color: #1f2933;
+      }
+      header {
+        background: #1f3a5f;
+        color: #ffffff;
+        padding: 1rem 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header h1 {
+        font-size: 1.15rem;
+        margin: 0;
+      }
+      header .datos {
+        font-size: 0.85rem;
+        opacity: 0.9;
+      }
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 1.25rem;
+        display: grid;
+        gap: 1.25rem;
+      }
+      .tarjeta {
+        background: #ffffff;
+        border: 1px solid #d9e2ec;
+        border-radius: 8px;
+        padding: 1rem;
+      }
+      .tarjeta h2 {
+        margin-top: 0;
+        font-size: 1rem;
+      }
+      .mensaje {
+        padding: 0.65rem 0.9rem;
+        border-radius: 6px;
+        margin: 0;
+      }
+      .mensaje.error {
+        background: #fde8e8;
+        border: 1px solid #e28a8a;
+      }
+      .total {
+        font-size: 1.15rem;
+      }
+      .simulacion {
+        background: #e0edff;
+        border-radius: 6px;
+        padding: 0.65rem 0.9rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+      }
+      th,
+      td {
+        border: 1px solid #d9e2ec;
+        padding: 0.45rem;
+        text-align: left;
+      }
+      th {
+        background: #eef2f6;
+      }
+      .critica {
+        font-weight: 600;
+        color: #8a4b08;
+      }
+      label {
+        margin-right: 0.8rem;
+      }
+      button {
+        cursor: pointer;
+        border: 1px solid #1f3a5f;
+        background: #ffffff;
+        color: #1f3a5f;
+        border-radius: 4px;
+        padding: 0.25rem 0.6rem;
+      }
+      button:hover {
+        background: #e0edff;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("parciales/cabecera", { rol, rolEtiqueta, estudiante }) %>
+    <main>
+      <%- include("parciales/mensajes", { ok, error }) %>
+
+      <section class="tarjeta">
+        <h2>Estimación de titulación</h2>
+        <p class="total">
+          <strong>Mínimo estimado: <%= resultado.simulacion ? resultado.simulacion.minimoSemestres : resultado.minimoSemestres %> semestres</strong>
+        </p>
+        <% if (resultado.simulacion) { %>
+        <p class="simulacion">
+          Simulación: <%= resultado.simulacion.accion === "reprobar" ? "Reprobar" : "Postergar" %>
+          <%= resultado.simulacion.codigo %> — <%= resultado.simulacion.nombre %>.
+          Retraso: <%= resultado.simulacion.retraso %> semestre<%= resultado.simulacion.retraso === 1 ? "" : "s" %>.
+        </p>
+        <% } %>
+      </section>
+
+      <section class="tarjeta">
+        <h2>Asignaturas pendientes</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Asignatura</th>
+              <th>Créditos</th>
+              <th>Semestre sugerido</th>
+              <th>Ruta crítica</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% resultado.pendientes.forEach(function (asignatura) { %>
+            <tr>
+              <td><%= asignatura.codigo %></td>
+              <td><%= asignatura.nombre %></td>
+              <td><%= asignatura.creditos %></td>
+              <td><%= asignatura.semestreSugerido %></td>
+              <td><%= asignatura.critica ? "Crítica" : "—" %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="tarjeta">
+        <h2>Simular reprobación o postergación</h2>
+        <form method="post" action="/tiempo-restante/simular">
+          <label for="asignatura_id">Asignatura pendiente</label>
+          <select id="asignatura_id" name="asignatura_id">
+            <% resultado.pendientes.forEach(function (asignatura) { %>
+            <option value="<%= asignatura.id %>">
+              <%= asignatura.codigo %> — <%= asignatura.nombre %><%= asignatura.critica ? " (crítica)" : "" %>
+            </option>
+            <% }) %>
+          </select>
+          <label><input type="radio" name="accion" value="reprobar" checked /> Reprobar</label>
+          <label><input type="radio" name="accion" value="postergar" /> Postergar</label>
+          <button type="submit">Simular</button>
+        </form>
+        <p><a href="/tiempo-restante">Ver estimación base</a> · <a href="/planificador">Volver al planificador</a></p>
+      </section>
+    </main>
+  </body>
+</html>

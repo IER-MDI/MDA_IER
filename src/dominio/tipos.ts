@@ -44,6 +44,42 @@ export interface MetricasSeccion {
   dificultad: number | null;
 }
 
+export interface AsignaturaDeMalla {
+  id: number;
+  codigo: string;
+  nombre: string;
+  creditos: number;
+  semestreSugerido: number;
+}
+
+export interface Prerrequisito {
+  asignaturaId: number;
+  prerrequisitoId: number;
+}
+
+export interface AsignaturaPendiente extends AsignaturaDeMalla {
+  critica: boolean;
+}
+
+export interface SimulacionTiempo {
+  asignaturaId: number;
+  accion: "reprobar" | "postergar";
+}
+
+export interface ResultadoTiempoRestante {
+  minimoSemestres: number;
+  pendientes: AsignaturaPendiente[];
+  cadenaCritica: number[];
+  simulacion: {
+    codigo: string;
+    nombre: string;
+    accion: "reprobar" | "postergar";
+    esCritica: boolean;
+    minimoSemestres: number;
+    retraso: number;
+  } | null;
+}
+
 export const DIAS = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"] as const;
 
 export const ETIQUETAS_DIA: Record<string, string> = {
