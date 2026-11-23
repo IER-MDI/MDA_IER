@@ -31,12 +31,11 @@ export function calcularTiempoRestante(
   for (const id of pendientesPorId.keys()) {
     sucesores.set(id, []);
   }
-  for (const prerrequisito of listarPrerrequisitos(db)) {
-    if (
-      pendientesPorId.has(prerrequisito.asignaturaId) &&
-      pendientesPorId.has(prerrequisito.prerrequisitoId)
-    ) {
-      sucesores.get(prerrequisito.prerrequisitoId)?.push(prerrequisito.asignaturaId);
+  for (const [asignaturaId, previos] of listarPrerrequisitos(db)) {
+    for (const prerrequisitoId of previos) {
+      if (pendientesPorId.has(asignaturaId) && pendientesPorId.has(prerrequisitoId)) {
+        sucesores.get(prerrequisitoId)?.push(asignaturaId);
+      }
     }
   }
 

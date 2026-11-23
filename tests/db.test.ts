@@ -26,7 +26,7 @@ describe("Base de datos", () => {
         "evaluacion",
         "asignatura_cursada",
         "carrera_asignatura",
-        "prerrequisito",
+        "asignatura_prerrequisito",
       ])
     );
     db.close();

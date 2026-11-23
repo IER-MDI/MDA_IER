@@ -11,9 +11,9 @@
 **Sistema de Gestión Académica e Inscripción Interactiva (SGAI)**
 Plataforma orientada a optimizar el proceso de preinscripción e inscripción de asignaturas universitarias mediante la automatización de la consolidación de oferta académica, visualización de carga de trabajo, simulación interactiva de horarios, proyección completa del avance curricular y centralización de evaluaciones y dificultad percibida por los estudiantes.
 
-## Aplicación web (HU-02 — Planificador · HU-03 — Referencias comunitarias · HU-05 — Tiempo restante)
+## Aplicación web (HU-02 — Planificador · HU-03 — Referencias comunitarias · HU-04 — Malla interactiva · HU-05 — Tiempo restante)
 
-Aplicación TypeScript + Express + EJS con SQLite. Implementa la simulación de horario de HU-02, la consulta de valoración docente y dificultad de HU-03 y la estimación de semestres restantes de HU-05, con datos de ejemplo de la oferta 2026-2 (la carga de Excel llegará con HU-01).
+Aplicación TypeScript + Express + EJS con SQLite. Implementa la simulación de horario de HU-02, la consulta de valoración docente y dificultad de HU-03, la malla interactiva con cadena de prerrequisitos de HU-04 y la estimación de semestres restantes de HU-05, con datos de ejemplo de la oferta 2026-2 (la carga de Excel llegará con HU-01).
 
 ### Requisitos
 - Node.js 20 o superior (probado con Node 26)
@@ -33,7 +33,7 @@ Abre `http://localhost:3000`. La base se crea en `data/app.db` y los datos de ej
 npm test
 ```
 
-Corre las pruebas de los escenarios Gherkin de HU-02, HU-03 y HU-05, la remoción de secciones, el solapamiento de bloques, los promedios de evaluaciones, la ruta crítica de prerrequisitos y las rutas HTTP.
+Corre las pruebas de los escenarios Gherkin de HU-02, HU-03, HU-04 y HU-05, la remoción de secciones, el solapamiento de bloques, los promedios de evaluaciones, el estado y la cadena de la malla, la ruta crítica de prerrequisitos y las rutas HTTP.
 
 ### Datos de ejemplo
 Carrera «Ingeniería Civil Informática» con tope de **30 créditos** y un estudiante demo («Mi horario», estado «en armado»).
@@ -48,6 +48,7 @@ Carrera «Ingeniería Civil Informática» con tope de **30 créditos** y un est
 | ING101 Inglés Técnico | 5 | jue 10:00–11:20 · vie 08:30–09:50 |
 | ECO101 Economía | 6 | lun 10:00–11:20 · mar 10:00–11:20 |
 | HUM101 Ética Profesional | 5 | sáb 10:00–11:20 |
+| ECU301 Ecuaciones Diferenciales | 6 | sin sección (solo malla) |
 
 Evaluaciones de ejemplo, anónimas y sin vínculo con el estudiante:
 
@@ -59,13 +60,17 @@ Evaluaciones de ejemplo, anónimas y sin vínculo con el estudiante:
 
 MAT101 queda con **4,0** de valoración docente y **4,3** de dificultad. MAT102, dictada por la misma docente, no tiene evaluaciones y muestra «Sin evaluaciones».
 
-### Malla y avance de ejemplo (HU-05)
+### Malla y avance de ejemplo (HU-04 y HU-05)
 
-La malla tiene 12 asignaturas. El avance del estudiante demo registra como **aprobadas** MAT101 Cálculo I, MAT201 Álgebra Lineal, FIS101 Física I y PROG101 Programación. La cadena pendiente más larga es:
+La malla tiene 13 asignaturas: las 8 de la oferta más ECU301, MAT201, MAT202, MAT301 y MAT401, todas sin sección excepto las de la oferta. Prerrequisitos: **MAT101 → MAT102 → ECU301**, **MAT101 → MAT102 → MAT202** (con **MAT201 → MAT202**) **→ MAT301 → MAT401** y **PROG101 → BD101**.
 
-`MAT102 Cálculo II → MAT202 Ecuaciones Diferenciales → MAT301 Análisis Numérico → MAT401 Proyecto de Título`
+| Dato | Valores |
+|------|---------|
+| Aprobadas | MAT101 Cálculo I, MAT201 Álgebra Lineal, FIS101 Física I, PROG101 Programación |
+| En curso | ING101 Inglés Técnico (etiqueta, sin cuarto color) |
+| Sin registro | MAT102, ECU301, MAT202, MAT301, MAT401, BD101, ECO101, HUM101 |
 
-Como son 4 asignaturas sucesivas, el mínimo estimado es de **4 semestres**. BD101 y ECO101 son pendientes cortos (no críticos): postergarlos no cambia el mínimo.
+La cadena pendiente más larga es `MAT102 Cálculo II → MAT202 Ecuaciones Diferenciales → MAT301 Análisis Numérico → MAT401 Proyecto de Título`. Como son 4 asignaturas sucesivas, el mínimo estimado es de **4 semestres**. ECU301 y BD101 son pendientes cortos (no críticos): postergarlos no cambia el mínimo.
 
 ### Recorrido manual de los escenarios
 1. **Créditos:** agrega MAT101 (5) y luego MAT102 (6). El total debe mostrar **11 de 30 créditos** y ambas secciones en la grilla.
@@ -78,11 +83,14 @@ Como son 4 asignaturas sucesivas, el mínimo estimado es de **4 semestres**. BD1
 6. **Sin evaluaciones:** busca MAT102 / Prof. Ana Pérez (misma docente, otra asignatura); debe mostrar «Sin evaluaciones» y ningún valor numérico.
 7. **Anonimato:** las evaluaciones no muestran ni guardan la identidad de quien las emitió.
 
-### Recorrido manual de HU-05
+### Recorrido manual de HU-04
+8. **Cadena y estados:** abre `http://localhost:3000/malla` y selecciona **MAT102**. MAT101 debe verse verde (aprobada) y resaltada como prerrequisito; MAT102 debe verse azul (disponible) y distinguida como seleccionada; ECU301 y MAT202 deben verse grises (bloqueadas) y resaltadas como dependientes; el resto de las asignaturas debe verse atenuado. El resumen debe listar «Prerrequisitos: MAT101 Cálculo I» y como dependientes ECU301 y MAT202 (y, por transitividad, MAT301 y MAT401).
+9. **Sin prerrequisitos:** selecciona **MAT101**. El resumen debe decir «Sin prerrequisitos» y listar como dependientes MAT102, ECU301, MAT202, MAT301 y MAT401; ING101 debe mostrar la etiqueta «En curso» sin un cuarto color.
 
-8. **Mínimo:** desde el planificador pulsa «Tiempo restante para titularse» (o abre `http://localhost:3000/tiempo-restante`). Debe mostrar **Mínimo estimado: 4 semestres** y MAT102, MAT202, MAT301 y MAT401 marcadas como críticas.
-9. **Simular reprobación:** selecciona MAT202, deja «Reprobar» y pulsa «Simular». El mínimo debe pasar a **5 semestres** y aparecer **Retraso: 1 semestre**.
-10. **Simular postergación no crítica:** selecciona BD101, elige «Postergar» y pulsa «Simular». El mínimo vuelve a **4 semestres** y el retraso es **0**. La simulación no se guarda: al volver a `/tiempo-restante` reaparece el valor base.
+### Recorrido manual de HU-05
+10. **Mínimo:** desde el planificador pulsa «Tiempo restante para titularse» (o abre `http://localhost:3000/tiempo-restante`). Debe mostrar **Mínimo estimado: 4 semestres** y MAT102, MAT202, MAT301 y MAT401 marcadas como críticas.
+11. **Simular reprobación:** selecciona MAT202, deja «Reprobar» y pulsa «Simular». El mínimo debe pasar a **5 semestres** y aparecer **Retraso: 1 semestre**.
+12. **Simular postergación no crítica:** selecciona BD101, elige «Postergar» y pulsa «Simular». El mínimo vuelve a **4 semestres** y el retraso es **0**. La simulación no se guarda: al volver a `/tiempo-restante` reaparece el valor base.
 
 ### Estructura
 ```text
@@ -91,9 +99,10 @@ src/server.ts               # arranca el servidor en el puerto 3000
 src/db/conexion.ts          # SQLite + migraciones
 src/db/migrations/          # migraciones SQL numeradas
 src/db/seed.ts              # datos de ejemplo idempotentes
-src/dominio/                # tipos, horario, métricas, repositorios y ruta crítica
+src/dominio/                # tipos, horario, métricas, malla, ruta crítica y repositorios
 src/servicios/simulacion.ts # alta, baja, créditos y validaciones
-src/rutas/planificador.ts   # rutas y mensajes del simulador
+src/rutas/planificador.ts   # rutas y mensajes del planificador
+src/rutas/malla.ts          # ruta GET /malla y cadena de prerrequisitos
 src/rutas/tiempo-restante.ts # consulta y simulación de semestres restantes
 src/vistas/                 # plantillas EJS
 tests/                      # pruebas Vitest + supertest
@@ -102,5 +111,6 @@ tests/                      # pruebas Vitest + supertest
 ### Notas
 - No hay autenticación real: la cabecera tiene un selector de rol de demostración.
 - RP-11 se aplica solo como anonimato (no se guarda ni muestra la identidad); el resto de los requisitos no funcionales se leen como contexto y no se implementan.
+- La malla es de solo lectura: no registra ni modifica el avance curricular; el «En curso» es una etiqueta, no un cuarto color.
 - La simulación de reprobación/postergación de HU-05 no se guarda: viaja en la URL y se recalcula al mostrar la pantalla.
-- Fuera de alcance: registrar evaluaciones o moderar comentarios (RP-12), carga de Excel (HU-01), malla interactiva y cadena de prerrequisitos resaltada (HU-04) y confirmar/exportar la simulación.
+- Fuera de alcance: registrar evaluaciones o moderar comentarios (RP-12), carga de Excel (HU-01), correquisitos y confirmar/exportar la simulación.

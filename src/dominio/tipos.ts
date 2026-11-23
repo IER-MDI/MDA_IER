@@ -44,7 +44,11 @@ export interface MetricasSeccion {
   dificultad: number | null;
 }
 
-export interface AsignaturaDeMalla {
+export type ResultadoAsignatura = "aprobada" | "reprobada" | "en curso";
+
+export type EstadoAsignatura = "aprobada" | "disponible" | "bloqueada";
+
+export interface AsignaturaEnMalla {
   id: number;
   codigo: string;
   nombre: string;
@@ -52,9 +56,11 @@ export interface AsignaturaDeMalla {
   semestreSugerido: number;
 }
 
-export interface Prerrequisito {
-  asignaturaId: number;
-  prerrequisitoId: number;
+export type AsignaturaDeMalla = AsignaturaEnMalla;
+
+export interface CadenaAsignatura {
+  prerrequisitos: number[];
+  dependientes: number[];
 }
 
 export interface AsignaturaPendiente extends AsignaturaDeMalla {

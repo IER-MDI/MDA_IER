@@ -17,14 +17,14 @@ describe("HU-05 · Estimación del tiempo restante de titulación", () => {
     const carrera = obtenerCarreraDelEstudiante(db, estudianteId);
 
     expect(carrera?.nombre).toBe("Ingeniería Civil Informática");
-    expect(listarAsignaturasDeMalla(db, carrera!.id)).toHaveLength(12);
+    expect(listarAsignaturasDeMalla(db, carrera!.id)).toHaveLength(13);
     expect(listarCodigosAprobados(db, estudianteId)).toEqual(["FIS101", "MAT101", "MAT201", "PROG101"]);
 
     sembrar(db);
     const registros = db.prepare("SELECT COUNT(*) AS total FROM asignatura_cursada").get() as {
       total: number;
     };
-    expect(registros.total).toBe(4);
+    expect(registros.total).toBe(5);
     db.close();
   });
 

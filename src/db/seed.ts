@@ -132,33 +132,36 @@ const ASIGNATURAS: AsignaturaSemilla[] = [
   },
 ];
 
-const EVALUACIONES: EvaluacionSemilla[] = [
-  { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 5, dificultad: 4 },
-  { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 3, dificultad: 4 },
-  { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 4, dificultad: 5 },
-];
-
-const ASIGNATURAS_MALLA: AsignaturaMallaSemilla[] = [
+const ASIGNATURAS_SIN_SECCION: AsignaturaMallaSemilla[] = [
+  { codigo: "ECU301", nombre: "Ecuaciones Diferenciales", creditos: 6, semestre: 3 },
   { codigo: "MAT201", nombre: "Álgebra Lineal", creditos: 6, semestre: 2 },
   { codigo: "MAT202", nombre: "Ecuaciones Diferenciales", creditos: 6, semestre: 3 },
   { codigo: "MAT301", nombre: "Análisis Numérico", creditos: 6, semestre: 5 },
   { codigo: "MAT401", nombre: "Proyecto de Título", creditos: 8, semestre: 8 },
 ];
 
+const AVANCE: { codigoAsignatura: string; resultado: "aprobada" | "reprobada" | "en curso"; periodo: string }[] = [
+  { codigoAsignatura: "MAT101", resultado: "aprobada", periodo: "2025-1" },
+  { codigoAsignatura: "MAT201", resultado: "aprobada", periodo: "2025-2" },
+  { codigoAsignatura: "FIS101", resultado: "aprobada", periodo: "2025-2" },
+  { codigoAsignatura: "PROG101", resultado: "aprobada", periodo: "2025-2" },
+  { codigoAsignatura: "ING101", resultado: "en curso", periodo: "2026-2" },
+];
+
+const EVALUACIONES: EvaluacionSemilla[] = [
+  { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 5, dificultad: 4 },
+  { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 3, dificultad: 4 },
+  { codigoAsignatura: "MAT101", docente: "Prof. Ana Pérez", calificacion: 4, dificultad: 5 },
+];
+
 const PRERREQUISITOS: [codigo: string, prerrequisito: string][] = [
   ["MAT102", "MAT101"],
+  ["ECU301", "MAT102"],
   ["MAT202", "MAT102"],
   ["MAT202", "MAT201"],
   ["MAT301", "MAT202"],
   ["MAT401", "MAT301"],
   ["BD101", "PROG101"],
-];
-
-const APROBADAS: { codigo: string; periodo: string }[] = [
-  { codigo: "MAT101", periodo: "2025-1" },
-  { codigo: "MAT201", periodo: "2025-2" },
-  { codigo: "FIS101", periodo: "2025-2" },
-  { codigo: "PROG101", periodo: "2025-2" },
 ];
 
 export function sembrar(db: BaseDatos): void {
@@ -173,6 +176,7 @@ export function sembrar(db: BaseDatos): void {
     db.prepare(
       "INSERT INTO estudiante (nombre, rut, carrera_id) VALUES (?, ?, ?) ON CONFLICT (rut) DO NOTHING"
     ).run(ESTUDIANTE.nombre, ESTUDIANTE.rut, carreraId);
+    const estudianteId = idDe(db, "SELECT id FROM estudiante WHERE rut = ?", ESTUDIANTE.rut);
 
     db.prepare(
       "INSERT INTO oferta_academica (periodo, fecha_publicacion) VALUES (?, ?) ON CONFLICT (periodo) DO NOTHING"
@@ -208,40 +212,37 @@ export function sembrar(db: BaseDatos): void {
       }
     }
 
-    const estudianteId = idDe(db, "SELECT id FROM estudiante WHERE rut = ?", ESTUDIANTE.rut);
-    const insertarAsignaturaMalla = db.prepare(
-      "INSERT INTO asignatura (codigo, nombre, creditos, semestre_sugerido) VALUES (?, ?, ?, ?) " +
-        "ON CONFLICT (codigo) DO NOTHING"
-    );
-    const insertarEnMalla = db.prepare(
-      "INSERT OR IGNORE INTO carrera_asignatura (carrera_id, asignatura_id) VALUES (?, ?)"
-    );
+    for (const asignatura of ASIGNATURAS_SIN_SECCION) {
+      insertarAsignatura.run(asignatura.codigo, asignatura.nombre, asignatura.creditos, asignatura.semestre);
+    }
 
-    for (const asignatura of ASIGNATURAS_MALLA) {
-      insertarAsignaturaMalla.run(asignatura.codigo, asignatura.nombre, asignatura.creditos, asignatura.semestre);
-    }
-    for (const codigo of [...ASIGNATURAS.map((asignatura) => asignatura.codigo), ...ASIGNATURAS_MALLA.map((asignatura) => asignatura.codigo)]) {
-      insertarEnMalla.run(carreraId, idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", codigo));
-    }
+    db.prepare(
+      "INSERT INTO carrera_asignatura (carrera_id, asignatura_id) " +
+        "SELECT ?, id FROM asignatura WHERE true ON CONFLICT (carrera_id, asignatura_id) DO NOTHING"
+    ).run(carreraId);
 
     const insertarPrerrequisito = db.prepare(
-      "INSERT OR IGNORE INTO prerrequisito (asignatura_id, prerrequisito_id) VALUES (?, ?)"
+      "INSERT INTO asignatura_prerrequisito (asignatura_id, prerrequisito_id) VALUES (?, ?) " +
+        "ON CONFLICT (asignatura_id, prerrequisito_id) DO NOTHING"
     );
-    for (const [codigo, prerrequisito] of PRERREQUISITOS) {
+    for (const [codigo, codigoPrerrequisito] of PRERREQUISITOS) {
       insertarPrerrequisito.run(
         idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", codigo),
-        idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", prerrequisito)
+        idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", codigoPrerrequisito)
       );
     }
 
-    const insertarCursada = db.prepare(
-      "INSERT INTO asignatura_cursada (estudiante_id, asignatura_id, resultado, periodo) " +
-        "SELECT ?, ?, 'aprobada', ? WHERE NOT EXISTS " +
-        "(SELECT 1 FROM asignatura_cursada WHERE estudiante_id = ? AND asignatura_id = ?)"
+    const insertarAvance = db.prepare(
+      "INSERT INTO asignatura_cursada (estudiante_id, asignatura_id, resultado, periodo) VALUES (?, ?, ?, ?) " +
+        "ON CONFLICT (estudiante_id, asignatura_id) DO NOTHING"
     );
-    for (const aprobada of APROBADAS) {
-      const asignaturaId = idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", aprobada.codigo);
-      insertarCursada.run(estudianteId, asignaturaId, aprobada.periodo, estudianteId, asignaturaId);
+    for (const registro of AVANCE) {
+      insertarAvance.run(
+        estudianteId,
+        idDe(db, "SELECT id FROM asignatura WHERE codigo = ?", registro.codigoAsignatura),
+        registro.resultado,
+        registro.periodo
+      );
     }
 
     const evaluacionesExistentes = db.prepare("SELECT COUNT(*) AS total FROM evaluacion").get() as {
@@ -285,10 +286,14 @@ if (ejecutadoDirectamente) {
   const bloques = db.prepare("SELECT COUNT(*) AS total FROM bloque_horario").get() as { total: number };
   const evaluaciones = db.prepare("SELECT COUNT(*) AS total FROM evaluacion").get() as { total: number };
   const malla = db.prepare("SELECT COUNT(*) AS total FROM carrera_asignatura").get() as { total: number };
-  const cursadas = db.prepare("SELECT COUNT(*) AS total FROM asignatura_cursada").get() as { total: number };
+  const prerrequisitos = db
+    .prepare("SELECT COUNT(*) AS total FROM asignatura_prerrequisito")
+    .get() as { total: number };
+  const avance = db.prepare("SELECT COUNT(*) AS total FROM asignatura_cursada").get() as { total: number };
   console.log(
     `Datos de ejemplo cargados: ${secciones.total} secciones, ${bloques.total} bloques horarios, ` +
-      `${evaluaciones.total} evaluaciones, ${malla.total} asignaturas en la malla y ${cursadas.total} registros de avance.`
+      `${evaluaciones.total} evaluaciones, ${malla.total} asignaturas en la malla, ` +
+      `${prerrequisitos.total} prerrequisitos y ${avance.total} registros de avance.`
   );
   db.close();
 }
