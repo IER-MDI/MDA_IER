@@ -19,7 +19,7 @@ describe("HU-02 · Simulación de horario", () => {
     db.close();
   });
 
-  it("Escenario · Agregar una sección a la simulación actualiza la carga de créditos", () => {
+  it("HU02-E01 · Agregar una sección a la simulación actualiza la carga de créditos", () => {
     const db = baseSembrada();
     const simulacion = obtenerSimulacionActivaDelEstudiante(db, idEstudianteDemo(db));
 
@@ -33,7 +33,7 @@ describe("HU-02 · Simulación de horario", () => {
     db.close();
   });
 
-  it("Escenario · Una sección que choca en horario con la simulación es advertida", () => {
+  it("HU02-E02 · Una sección que choca en horario con la simulación es advertida", () => {
     const db = baseSembrada();
     const simulacion = obtenerSimulacionActivaDelEstudiante(db, idEstudianteDemo(db));
     agregarSeccion(db, simulacion.id, idSeccion(db, "MAT101"));
@@ -49,7 +49,7 @@ describe("HU-02 · Simulación de horario", () => {
     db.close();
   });
 
-  it("Escenario · Una sección que supera el tope de créditos es advertida", () => {
+  it("HU02-E03 · Una sección que supera el tope de créditos es advertida", () => {
     const db = baseSembrada();
     const simulacion = obtenerSimulacionActivaDelEstudiante(db, idEstudianteDemo(db));
     for (const codigo of ["MAT101", "PROG101", "BD101", "ING101", "ECO101"]) {
@@ -84,7 +84,7 @@ describe("HU-02 · Simulación de horario", () => {
     db.close();
   });
 
-  it("Escenario · Una sección de la simulación deja de ofrecerse y vuelve al removerla", () => {
+  it("HU02-E04 · Una sección de la simulación deja de ofrecerse y vuelve al removerla", () => {
     const db = baseSembrada();
     const simulacion = obtenerSimulacionActivaDelEstudiante(db, idEstudianteDemo(db));
     const mat101 = idSeccion(db, "MAT101");

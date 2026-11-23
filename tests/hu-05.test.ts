@@ -28,7 +28,7 @@ describe("HU-05 · Estimación del tiempo restante de titulación", () => {
     db.close();
   });
 
-  it("Escenario · El sistema estima el mínimo de semestres restantes a partir del avance", () => {
+  it("HU05-E01 · El sistema estima el mínimo de semestres restantes a partir del avance", () => {
     const db = baseSembrada();
     const resultado = calcularTiempoRestante(db, idEstudianteDemo(db));
 
@@ -40,7 +40,7 @@ describe("HU-05 · Estimación del tiempo restante de titulación", () => {
     db.close();
   });
 
-  it("Escenario · Simular la reprobación de una asignatura crítica aumenta el tiempo restante", () => {
+  it("HU05-E02 · Simular la reprobación de una asignatura crítica aumenta el tiempo restante", () => {
     const db = baseSembrada();
     const resultado = calcularTiempoRestante(db, idEstudianteDemo(db), {
       asignaturaId: idAsignatura(db, "MAT202"),

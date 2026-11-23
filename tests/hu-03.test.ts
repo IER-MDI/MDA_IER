@@ -25,7 +25,7 @@ describe("HU-03 · Referencias comunitarias y dificultad docente", () => {
     expect(dibujarEstrellas(4)).toBe("★★★★☆");
   });
 
-  it("Escenario · Una sección con evaluaciones muestra la valoración del docente y la dificultad de la asignatura", async () => {
+  it("HU03-E01 · Una sección con evaluaciones muestra la valoración del docente y la dificultad de la asignatura", async () => {
     const db = baseSembrada();
     const app = crearApp(db);
 
@@ -42,7 +42,7 @@ describe("HU-03 · Referencias comunitarias y dificultad docente", () => {
     db.close();
   });
 
-  it("Escenario · Una sección sin evaluaciones no muestra valores inventados", async () => {
+  it("HU03-E02 · Una sección sin evaluaciones no muestra valores inventados", async () => {
     const db = baseSembrada();
     const app = crearApp(db);
 

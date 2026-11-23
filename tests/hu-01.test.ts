@@ -29,7 +29,7 @@ function cuerpoMapeo(borrador: Borrador, cambios: Partial<Borrador["mapeo"]> = {
 }
 
 describe("HU-01 · Carga y traducción de oferta académica", () => {
-  it("Escenario · Una planilla válida se incorpora al sistema", async () => {
+  it("HU01-E01 · Una planilla de oferta académica válida se incorpora al sistema", async () => {
     const db = baseSembrada();
     const app = crearApp(db);
     const respuesta = await request(app)
@@ -46,7 +46,7 @@ describe("HU-01 · Carga y traducción de oferta académica", () => {
     db.close();
   });
 
-  it("Escenario · Una planilla con filas que no se pueden interpretar", async () => {
+  it("HU01-E02 · Una planilla con filas que no se pueden interpretar", async () => {
     const db = baseSembrada();
     const app = crearApp(db);
     await request(app)

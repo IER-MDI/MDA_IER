@@ -83,7 +83,7 @@ describe("HU-04 · Malla interactiva y cadena de prerrequisitos", () => {
     db.close();
   });
 
-  it("Escenario · Una asignatura con prerrequisitos y dependientes muestra su cadena y su estado", async () => {
+  it("HU04-E01 · Una asignatura con prerrequisitos y dependientes muestra su cadena y su estado", async () => {
     const db = baseSembrada();
     const app = crearApp(db);
 
@@ -112,7 +112,7 @@ describe("HU-04 · Malla interactiva y cadena de prerrequisitos", () => {
     db.close();
   });
 
-  it("Escenario · Una asignatura sin prerrequisitos muestra solo las asignaturas que dependen de ella", async () => {
+  it("HU04-E02 · Una asignatura sin prerrequisitos muestra solo las asignaturas que dependen de ella", async () => {
     const db = baseSembrada();
     const app = crearApp(db);
 

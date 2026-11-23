@@ -100,7 +100,7 @@ describe("HU-02 · Planificador de horario (HTTP)", () => {
     db.close();
   });
 
-  it("Escenario · Una sección de la simulación deja de ofrecerse y vuelve al removerla", async () => {
+  it("HU02-E04 · Una sección de la simulación deja de ofrecerse y vuelve al removerla", async () => {
     const { db, app } = appDePrueba();
     const mat101 = idSeccion(db, "MAT101");
 

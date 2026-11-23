@@ -9,14 +9,14 @@ Como **estudiante o administrador comunitario**, quiero **subir la planilla Exce
 ```gherkin
 Característica: Carga y traducción de la oferta académica
 
-  Escenario: Una planilla de oferta académica válida se incorpora al sistema
+  Escenario: HU01-E01 — Una planilla de oferta académica válida se incorpora al sistema
     Dado una planilla de oferta académica en formato Excel o CSV, publicada por la universidad para el período 2026-2
     Y la planilla indica, para cada sección, el código y nombre de la asignatura, el número de sección, el docente y los bloques horarios
     Cuando el estudiante carga la planilla
     Entonces el sistema interpreta cada fila como una sección de una asignatura, con su docente y sus bloques horarios
     Y el estudiante puede revisar los datos interpretados antes de confirmarlos
 
-  Escenario: Una planilla con filas que no se pueden interpretar
+  Escenario: HU01-E02 — Una planilla con filas que no se pueden interpretar
     Dado una planilla de oferta académica en la que algunas filas no tienen código de asignatura o bloques horarios
     Cuando el estudiante carga la planilla
     Entonces el sistema informa cuáles filas no pudo interpretar y el motivo de cada una
@@ -32,7 +32,7 @@ Como **estudiante**, quiero **simular combinaciones de horarios en una grilla in
 ```gherkin
 Característica: Simulación de horario con control de carga académica
 
-  Escenario: Agregar una sección a la simulación actualiza la carga de créditos
+  Escenario: HU02-E01 — Agregar una sección a la simulación actualiza la carga de créditos
     Dado un estudiante con una simulación de horario que incluye una sección de 5 créditos
     Y una sección de 6 créditos cuyos bloques horarios no coinciden con los de la simulación
     Y el tope de créditos de su carrera es 30
@@ -40,21 +40,21 @@ Característica: Simulación de horario con control de carga académica
     Entonces la simulación incluye ambas secciones
     Y el total de créditos de la simulación es 11
 
-  Escenario: Una sección que choca en horario con la simulación es advertida
+  Escenario: HU02-E02 — Una sección que choca en horario con la simulación es advertida
     Dado un estudiante con una simulación que incluye una sección con un bloque el lunes de 08:30 a 09:50
     Y otra sección con un bloque el lunes de 09:00 a 10:20
     Cuando el estudiante intenta agregar la segunda sección
     Entonces el sistema informa que existe un choque de horario con la primera sección
     Y la segunda sección no se incorpora a la simulación
 
-  Escenario: Una sección que supera el tope de créditos es advertida
+  Escenario: HU02-E03 — Una sección que supera el tope de créditos es advertida
     Dado un estudiante con una simulación de 28 créditos
     Y el tope de créditos de su carrera es 30
     Cuando el estudiante intenta agregar una sección de 5 créditos
     Entonces el sistema informa que se superaría el tope de créditos
     Y el total de créditos de la simulación sigue siendo 28
 
-  Escenario: Una sección de la simulación deja de ofrecerse y vuelve al removerla
+  Escenario: HU02-E04 — Una sección de la simulación deja de ofrecerse y vuelve al removerla
     Dado un estudiante con una simulación de horario
     Cuando el estudiante agrega una sección de la oferta a su simulación
     Entonces la sección deja de mostrarse en el listado de secciones de la oferta académica
@@ -72,7 +72,7 @@ Como **estudiante**, quiero **ver las calificaciones comunitarias de profesores 
 ```gherkin
 Característica: Consulta de valoración docente y dificultad de asignaturas
 
-  Escenario: Una sección con evaluaciones muestra la valoración del docente y la dificultad de la asignatura
+  Escenario: HU03-E01 — Una sección con evaluaciones muestra la valoración del docente y la dificultad de la asignatura
     Dado un docente que ha recibido evaluaciones de 5, 3 y 4 en una escala de 1 a 5
     Y una asignatura con evaluaciones de dificultad percibida de 4, 4 y 5 en una escala de 1 a 5
     Cuando el estudiante consulta una sección de esa asignatura dictada por ese docente
@@ -80,7 +80,7 @@ Característica: Consulta de valoración docente y dificultad de asignaturas
     Y muestra una dificultad percibida de la asignatura de 4,3
     Y no revela quién emitió cada evaluación
 
-  Escenario: Una sección sin evaluaciones no muestra valores inventados
+  Escenario: HU03-E02 — Una sección sin evaluaciones no muestra valores inventados
     Dado un docente que aún no ha recibido evaluaciones
     Cuando el estudiante consulta una sección dictada por ese docente
     Entonces el sistema informa que todavía no hay evaluaciones disponibles
@@ -96,7 +96,7 @@ Como **estudiante**, quiero **seleccionar una asignatura en la malla interactiva
 ```gherkin
 Característica: Consulta de la cadena de prerrequisitos de una asignatura
 
-  Escenario: Una asignatura con prerrequisitos y dependientes muestra su cadena y su estado
+  Escenario: HU04-E01 — Una asignatura con prerrequisitos y dependientes muestra su cadena y su estado
     Dado un estudiante de una carrera cuya malla indica que Cálculo I es prerrequisito de Cálculo II
     Y que Cálculo II es prerrequisito de Ecuaciones Diferenciales
     Y que el estudiante aprobó Cálculo I y no ha aprobado las otras dos
@@ -104,7 +104,7 @@ Característica: Consulta de la cadena de prerrequisitos de una asignatura
     Entonces el sistema señala Cálculo I como prerrequisito y Ecuaciones Diferenciales como asignatura que depende de Cálculo II
     Y Cálculo I se presenta como aprobada, Cálculo II como disponible y Ecuaciones Diferenciales como bloqueada
 
-  Escenario: Una asignatura sin prerrequisitos muestra solo las asignaturas que dependen de ella
+  Escenario: HU04-E02 — Una asignatura sin prerrequisitos muestra solo las asignaturas que dependen de ella
     Dado una asignatura del primer semestre que no tiene prerrequisitos
     Cuando el estudiante consulta esa asignatura
     Entonces el sistema informa que no tiene prerrequisitos
@@ -120,36 +120,35 @@ Como **estudiante**, quiero **conocer la cantidad mínima estimada de semestres 
 ```gherkin
 Característica: Estimación del tiempo restante de titulación
 
-  Escenario: El sistema estima el mínimo de semestres restantes a partir del avance
+  Escenario: HU05-E01 — El sistema estima el mínimo de semestres restantes a partir del avance
     Dado un estudiante cuyas asignaturas pendientes forman como máxima cadena de prerrequisitos 4 asignaturas sucesivas
     Cuando el estudiante consulta el tiempo restante para titularse
     Entonces el sistema informa que el mínimo estimado es de 4 semestres
     Y muestra con prioridad crítica en la columna "Prioridad" a MAT102, MAT202, MAT301 y MAT401
 
-  Escenario: Simular la reprobación de una asignatura crítica aumenta el tiempo restante
+  Escenario: HU05-E02 — Simular la reprobación de una asignatura crítica aumenta el tiempo restante
     Dado un estudiante con un mínimo estimado de 4 semestres restantes
     Y una asignatura que pertenece a la cadena más larga de prerrequisitos pendientes
     Cuando el estudiante simula reprobar esa asignatura
     Entonces el sistema informa que el mínimo estimado pasa a 5 semestres
     Y señala que el retraso es de 1 semestre
 
-  Escenario: Clasificar la prioridad de las asignaturas pendientes
+  Escenario: HU05-E03 — Clasificar la prioridad de las asignaturas pendientes
     Dado un estudiante con aprobadas MAT101, MAT201, FIS101 y PROG101 en la malla
     Cuando el estudiante consulta el tiempo restante para titularse
     Entonces el sistema muestra "crítica" en MAT102, MAT202, MAT301 y MAT401 por pertenecer a la cadena más larga de prerrequisitos
     Y muestra "necesaria" en FIS201 por ser prerrequisito de FIS202, que está pendiente, sin pertenecer a la cadena más larga
     Y muestra "postergable" en FIS202, ECO101 y BD101 por no tener dependientes pendientes
 
-  Escenario: Mostrar asignaturas cursables y bloqueadas
+  Escenario: HU05-E04 — Mostrar asignaturas cursables y bloqueadas
     Dado un estudiante con aprobadas MAT101, MAT201, FIS101 y PROG101 en la malla
     Cuando el estudiante consulta el tiempo restante para titularse
     Entonces el texto "Cursables:" incluye MAT102, FIS201, PROG201 y ECO101 por tener todos sus prerrequisitos aprobados
     Y ese texto no incluye MAT202, MAT301, MAT401, FIS202, PROG301 ni BD101 por tener prerrequisitos pendientes
     Y el listado mantiene visibles esas asignaturas con el estado "Bloqueada"
 
-  Escenario: Mostrar el semestre de cada asignatura pendiente
+  Escenario: HU05-E05 — Mostrar el semestre de cada asignatura pendiente
     Dado un estudiante que consulta el tiempo restante para titularse
     Cuando ve el listado de asignaturas pendientes
     Entonces cada asignatura muestra en la columna "Semestre" el semestre sugerido definido en la malla
 ```
-    
