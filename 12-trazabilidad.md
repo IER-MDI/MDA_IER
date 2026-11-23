@@ -2,20 +2,22 @@
 
 ## Matriz de trazabilidad
 
-| Requisito (Entrega 1) | Historia | Caso de uso | Secuencia | Estado | Clases del dominio |
-|-----------------------|----------|-------------|-----------|--------|---------------------|
-| RP-01 | HU-01 | CU-01 | DSS-01 | EST-01 | Oferta Académica, Sección, Asignatura |
-| RP-02 | HU-01 | CU-02, CU-03, CU-04 | DSS-01 | EST-01 | Oferta Académica, Sección, Asignatura |
-| RP-03 | HU-04 | CU-13, CU-14 | — | — | Asignatura, Asignatura Cursada, Carrera |
-| RP-04 | HU-05 | CU-15, CU-16 | — | — | Estudiante, Asignatura, Asignatura Cursada, Carrera |
-| RP-05 | HU-02 | CU-05 | DSS-02 | — | Simulación de Horario, Sección, Asignatura |
-| RP-06 | HU-03 | CU-11, CU-12 | — | — | Evaluación, Asignatura, Sección |
-| RP-07 | HU-02 | CU-05 | DSS-02 | — | Simulación de Horario, Sección, Carrera |
-| RP-08 | — | — | — | — | Simulación de Horario |
-| RP-09 | HU-01 | CU-01, CU-02 | DSS-01 | EST-01 | Oferta Académica, Sección |
-| RP-10 | HU-02 | CU-05 | DSS-02 | — | Simulación de Horario, Sección |
-| RP-11 | HU-03 | — | — | — | Evaluación, Asignatura |
-| RP-12 | — | — | — | — | Evaluación |
+Las rutas de las columnas **Código** y **Prueba** son relativas a la raíz del repositorio.
+
+| Requisito (Entrega 1) | Historia | Caso de uso | Secuencia | Estado | Clases del dominio | Código | Prueba |
+|-----------------------|----------|-------------|-----------|--------|---------------------|--------|--------|
+| RP-01 | HU-01 | CU-01 | DSS-01 | EST-01 | Oferta Académica, Sección, Asignatura | `src/rutas/carga.ts`, `src/servicios/leerPlanilla.ts`, `src/servicios/parsearOferta.ts`, `src/servicios/publicarOferta.ts`, `src/dominio/estadoOferta.ts` | `tests/hu-01.test.ts`, `tests/integracion-hu-01.test.ts` |
+| RP-02 | HU-01 | CU-02, CU-03, CU-04 | DSS-01 | EST-01 | Oferta Académica, Sección, Asignatura | `src/rutas/carga.ts`, `src/servicios/leerPlanilla.ts`, `src/servicios/parsearOferta.ts`, `src/servicios/publicarOferta.ts`, `src/dominio/estadoOferta.ts` | `tests/hu-01.test.ts`, `tests/integracion-hu-01.test.ts` |
+| RP-03 | HU-04 | CU-13, CU-14 | — | — | Asignatura, Asignatura Cursada, Carrera | `src/rutas/malla.ts`, `src/dominio/malla.ts` | `tests/hu-04.test.ts` |
+| RP-04 | HU-05 | CU-15, CU-16 | — | — | Estudiante, Asignatura, Asignatura Cursada, Carrera | `src/rutas/tiempo-restante.ts`, `src/dominio/tiempo-restante.ts` | `tests/hu-05.test.ts` |
+| RP-05 | HU-02 | CU-05 | DSS-02 | — | Simulación de Horario, Sección, Asignatura | `src/rutas/planificador.ts`, `src/servicios/simulacion.ts`, `src/dominio/horario.ts` | `tests/hu-02.test.ts`, `tests/app.test.ts` |
+| RP-06 | HU-03 | CU-11, CU-12 | — | — | Evaluación, Asignatura, Sección | `src/dominio/metricas.ts`, `src/dominio/repositorios.ts`, `src/vistas/parciales/metricas.ejs` | `tests/hu-03.test.ts` |
+| RP-07 | HU-02 | CU-05 | DSS-02 | — | Simulación de Horario, Sección, Carrera | `src/rutas/planificador.ts`, `src/servicios/simulacion.ts`, `src/dominio/horario.ts` | `tests/hu-02.test.ts`, `tests/app.test.ts` |
+| RP-08 | — | — | — | — | Simulación de Horario | — | — |
+| RP-09 | HU-01 | CU-01, CU-02 | DSS-01 | EST-01 | Oferta Académica, Sección | `src/rutas/carga.ts`, `src/servicios/leerPlanilla.ts`, `src/servicios/parsearOferta.ts`, `src/servicios/publicarOferta.ts`, `src/dominio/estadoOferta.ts` | `tests/hu-01.test.ts`, `tests/integracion-hu-01.test.ts` |
+| RP-10 | HU-02 | CU-05 | DSS-02 | — | Simulación de Horario, Sección | `src/rutas/planificador.ts`, `src/servicios/simulacion.ts`, `src/dominio/horario.ts` | `tests/hu-02.test.ts`, `tests/app.test.ts` |
+| RP-11 | HU-03 | CU-11, CU-12 | — | — | Evaluación, Asignatura | `src/dominio/metricas.ts`, `src/dominio/repositorios.ts`, `src/vistas/parciales/metricas.ejs` | `tests/hu-03.test.ts` |
+| RP-12 | — | — | — | — | Evaluación | — | — |
 
 ## Observaciones
 

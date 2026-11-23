@@ -2,7 +2,7 @@
 
 ## Why
 
-HU-05 pide al estudiante conocer el mínimo estimado de semestres que le faltan para titularse. Hoy la aplicación (HU-02 y HU-03) solo calcula carga horaria, choques y valoraciones; no existe la malla, el avance curricular ni el cálculo de ruta crítica. La actividad del TO-BE «Consultar malla interactiva y tiempo restante» (`02-rediseno-to-be.md`) exige pasar del gráfico estático del AS-IS a un cálculo dinámico de semestres restantes (RP-04). Los casos de uso de origen son CU-14 «Consultar semestres mínimos restantes para titularse» y CU-15 «Simular reprobación o postergación de una asignatura» (`09-casos-uso.md`).
+HU-05 pide al estudiante conocer el mínimo estimado de semestres que le faltan para titularse. Hoy la aplicación (HU-02 y HU-03) solo calcula carga horaria, choques y valoraciones; no existe la malla, el avance curricular ni el cálculo de ruta crítica. La actividad del TO-BE «Consultar malla interactiva y tiempo restante» (`02-rediseno-to-be.md`) exige pasar del gráfico estático del AS-IS a un cálculo dinámico de semestres restantes (RP-04). Los casos de uso de origen son CU-15 «Consultar semestres mínimos restantes para titularse» y CU-16 «Simular reprobación o postergación de una asignatura» (`09-casos-uso.md`).
 
 ## What Changes
 
