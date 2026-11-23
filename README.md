@@ -16,7 +16,7 @@ Plataforma orientada a optimizar el proceso de preinscripción e inscripción de
 Aplicación TypeScript + Express + EJS con SQLite. Implementa la carga y traducción de planillas de HU-01, la simulación de horario de HU-02, la consulta de valoración docente y dificultad de HU-03, la malla interactiva con cadena de prerrequisitos de HU-04 y la estimación de semestres restantes de HU-05. Sin una carga nueva, el simulador usa los datos de ejemplo de la oferta 2026-2; al publicar una planilla, esa oferta pasa a ser la oferta activa.
 
 ### Requisitos
-- Node.js 20 o superior (probado con Node 26)
+- Node.js 20 o superior (probado con Node 22.23.5)
 - npm
 
 ### Instalar, cargar datos y ejecutar
