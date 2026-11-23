@@ -26,7 +26,7 @@
 
 | Historia | Ruta | Código | Prueba | Cambio OpenSpec archivado |
 |---|---|---|---|---|
-| HU-01 | /carga | `src/vistas/parciales/cabecera.ejs`, `src/vistas/parciales/mensajes.ejs` *(+ rutas/controladores según repo)* | `tests/hu-01.test.ts`, `tests/integracion-hu-01.test.ts`, `tests/leer-planilla.test.ts`, `tests/parsear-oferta.test.ts`, `tests/publicar-oferta.test.ts` | *(revisar carpeta en archive/)* |
+| HU-01 | /carga | `src/vistas/parciales/cabecera.ejs`, `src/vistas/parciales/mensajes.ejs` *( rutas/controladores según repo)* | `tests/hu-01.test.ts`, `tests/integracion-hu-01.test.ts`, `tests/leer-planilla.test.ts`, `tests/parsear-oferta.test.ts`, `tests/publicar-oferta.test.ts` | *(revisar carpeta en archive/)* |
 | HU-02 | /planificador | `src/vistas/planificador.ejs`, `src/vistas/parciales/grilla.ejs`, `src/vistas/parciales/secciones.ejs` | `tests/hu-02.test.ts`, `tests/oferta-activa.test.ts`, `tests/estado-oferta.test.ts` | *(revisar carpeta en archive/)* |
 | HU-03 | /planificador | `src/vistas/planificador.ejs`, `src/vistas/parciales/grilla.ejs`, `src/vistas/parciales/secciones.ejs`, `src/vistas/parciales/metricas.ejs` | `tests/hu-03.test.ts` | *(revisar carpeta en archive/)* |
 | HU-04 | /malla | `src/vistas/parciales/grilla.ejs`, `src/vistas/parciales/metricas.ejs` | `tests/hu-04.test.ts` | *(revisar carpeta en archive/)* |
