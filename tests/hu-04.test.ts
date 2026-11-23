@@ -107,7 +107,7 @@ describe("HU-04 · Malla interactiva y cadena de prerrequisitos", () => {
     expect(bd101).toContain("atenuada");
 
     expect(respuesta.text).toContain("MAT101 Cálculo I");
-    expect(respuesta.text).toContain("ECU301 Ecuaciones Diferenciales");
+    expect(respuesta.text).toContain("ECU301 Ecuaciones Diferenciales Aplicadas");
 
     db.close();
   });
@@ -121,7 +121,7 @@ describe("HU-04 · Malla interactiva y cadena de prerrequisitos", () => {
     expect(respuesta.status).toBe(200);
     expect(respuesta.text).toContain("Sin prerrequisitos");
     expect(respuesta.text).toContain("MAT102 Cálculo II");
-    expect(respuesta.text).toContain("ECU301 Ecuaciones Diferenciales");
+    expect(respuesta.text).toContain("ECU301 Ecuaciones Diferenciales Aplicadas");
 
     expect(tarjeta(respuesta.text, "MAT101")).toContain("seleccionada");
     expect(tarjeta(respuesta.text, "MAT102")).toContain("relacionada");

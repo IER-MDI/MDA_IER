@@ -133,7 +133,7 @@ const ASIGNATURAS: AsignaturaSemilla[] = [
 ];
 
 const ASIGNATURAS_SIN_SECCION: AsignaturaMallaSemilla[] = [
-  { codigo: "ECU301", nombre: "Ecuaciones Diferenciales", creditos: 6, semestre: 3 },
+  { codigo: "ECU301", nombre: "Ecuaciones Diferenciales Aplicadas", creditos: 6, semestre: 3 },
   { codigo: "MAT201", nombre: "Álgebra Lineal", creditos: 6, semestre: 2 },
   { codigo: "MAT202", nombre: "Ecuaciones Diferenciales", creditos: 6, semestre: 3 },
   { codigo: "MAT301", nombre: "Análisis Numérico", creditos: 6, semestre: 5 },

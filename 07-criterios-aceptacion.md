@@ -97,12 +97,12 @@ Como **estudiante**, quiero **seleccionar una asignatura en la malla interactiva
 Característica: Consulta de la cadena de prerrequisitos de una asignatura
 
   Escenario: HU04-E01 — Una asignatura con prerrequisitos y dependientes muestra su cadena y su estado
-    Dado un estudiante de una carrera cuya malla indica que Cálculo I es prerrequisito de Cálculo II
-    Y que Cálculo II es prerrequisito de Ecuaciones Diferenciales
-    Y que el estudiante aprobó Cálculo I y no ha aprobado las otras dos
-    Cuando el estudiante consulta Cálculo II
-    Entonces el sistema señala Cálculo I como prerrequisito y Ecuaciones Diferenciales como asignatura que depende de Cálculo II
-    Y Cálculo I se presenta como aprobada, Cálculo II como disponible y Ecuaciones Diferenciales como bloqueada
+    Dado un estudiante de una carrera cuya malla indica que MAT101 Cálculo I es prerrequisito de MAT102 Cálculo II
+    Y que MAT102 Cálculo II es prerrequisito de MAT202 Ecuaciones Diferenciales
+    Y que el estudiante aprobó MAT101 Cálculo I y no ha aprobado las otras dos
+    Cuando el estudiante consulta MAT102 Cálculo II
+    Entonces el sistema señala MAT101 Cálculo I como prerrequisito y MAT202 Ecuaciones Diferenciales como asignatura que depende de MAT102 Cálculo II
+    Y MAT101 Cálculo I se presenta como aprobada, MAT102 Cálculo II como disponible y MAT202 Ecuaciones Diferenciales como bloqueada
 
   Escenario: HU04-E02 — Una asignatura sin prerrequisitos muestra solo las asignaturas que dependen de ella
     Dado una asignatura del primer semestre que no tiene prerrequisitos

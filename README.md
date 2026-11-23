@@ -53,7 +53,7 @@ Carrera «Ingeniería Civil Informática» con tope de **30 créditos** y un est
 | ING101 Inglés Técnico | 5 | jue 10:00–11:20 · vie 08:30–09:50 |
 | ECO101 Economía | 6 | lun 10:00–11:20 · mar 10:00–11:20 |
 | HUM101 Ética Profesional | 5 | sáb 10:00–11:20 |
-| ECU301 Ecuaciones Diferenciales | 6 | sin sección (solo malla) |
+| ECU301 Ecuaciones Diferenciales Aplicadas | 6 | sin sección (solo malla) |
 
 Evaluaciones de ejemplo, anónimas y sin vínculo con el estudiante:
 
