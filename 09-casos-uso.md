@@ -4,9 +4,8 @@ HU-01: Carga y Traducción de Oferta Académica en Excel
 ## Actores
 | Actor | Tipo (humano / sistema externo) | Descripción |
 |-------|----------------------------------|-------------|
-| Estudiante  | Humano | Sube la planilla y confirma datos para el simulador |
-|Administrador| Humano | Mismo rol que estudiante|
-|Sistema de la Universidad| Sistema externo | Entrega la fuente con la oferta académica|
+| Estudiante o administrador comunitario | Humano | Sube la planilla, revisa el mapeo y confirma los datos para el simulador |
+| Sistema de la Universidad | Sistema externo | Publica la planilla de oferta; es un sistema externo antecedente, sin mensajes en DSS-01 |
  
 ## Diagrama de casos de uso
 ![Casos de uso](./diagramas/casos-de-uso.png)
@@ -16,11 +15,15 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/casos-de-uso.dra
 ## Casos de uso y su origen
 | ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
 |----|-----------------------------------|-----------------|---------------------|
-| CU-01 | Cargar planilla | Estudiante, Admin. comunitario, Sistema Universidad | [HU-01](./04-historias-usuario.md#hu-01) |
-| CU-02 | Validar datos parseados | Estudiante, Admin. comunitario, Sistema Universidad  | [HU-01](./04-historias-usuario.md#hu-01) |
-| CU-03 | Previsualizar datos | Estudiante y administrador | [HU-01](./04-historias-usuario.md#hu-01) |
-| CU-04 | Confirmar datos | Estudiante y administrador | [HU-01](./04-historias-usuario.md#hu-01) |
-| CU-05 | Simular horario semestral | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-01 | Cargar planilla | Estudiante o administrador comunitario | [HU-01](./04-historias-usuario.md#hu-01) |
+| CU-02 | Validar datos parseados | Estudiante o administrador comunitario | [HU-01](./04-historias-usuario.md#hu-01) |
+| CU-03 | Previsualizar datos | Estudiante o administrador comunitario | [HU-01](./04-historias-usuario.md#hu-01) |
+| CU-04 | Confirmar datos | Estudiante o administrador comunitario | [HU-01](./04-historias-usuario.md#hu-01) |
+
+## Relación con las otras historias
+- **CU-01…CU-04 (HU-01)** publican la oferta activa que consumen **CU-05…CU-10 (HU-02)** y cuyas asignaturas y docentes alimentan las métricas de **CU-11/CU-12 (HU-03)**.
+- La identidad de **Asignatura** se conserva por código: **CU-13/CU-14 (HU-04)** y **CU-15/CU-16 (HU-05)** siguen leyendo la misma malla y el mismo avance. HU-01 no modifica la malla, los prerrequisitos ni `Asignatura Cursada`.
+- Una asignatura nueva queda disponible en la oferta y el simulador, pero no se incorpora automáticamente a la malla.
 
 # Caso de uso 2
 ## Historia de origen:
@@ -39,11 +42,12 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-02.drawio)
 ## Casos de uso y su origen
 | ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
 |----|-----------------------------------|-----------------|---------------------|
+| CU-05 | Simular horario semestral | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
 | CU-06 | Agregar sección a grilla horaria | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
 | CU-07 | Remover sección de la grilla horaria | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
 | CU-08 | Consultar créditos totales de la carga académica | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
-| CU-09 | Advertir choque de horario | - | [HU-02](./04-historias-usuario.md#hu-02) |
-| CU-10 | Advertir exceso del tope crediticio | -| [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-09 | Advertir choque de horario | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-10 | Advertir exceso del tope crediticio | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
 
 # ! Estos fueron añadidos después de la fecha de entrega
 ## HU-03: Consulta de Referencias Comunitaria y Dificultad Docente

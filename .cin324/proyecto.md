@@ -25,6 +25,7 @@
 - 2026-11-20 (confirmado por el estudiante): el contenido de DSS-02 (HU-02) no es verificable (solo imagen remota de GitHub); el flujo de interacción se reconstruirá con el estudiante durante la validación de HU-02.
 - 2026-11-20 (confirmado por el estudiante): `12-trazabilidad.md` está desactualizado respecto de `09-casos-uso.md`; se prioriza `09-casos-uso.md`.
 - 2026-11-22 (confirmado por el estudiante): «reprobar» y «postergar» tienen el mismo efecto y la simulación no se persiste. Tras integrar HU-04 y HU-05, HU-05 calcula la ruta crítica sobre la malla compartida del `seed` (13 asignaturas y 7 prerrequisitos); HU-01 sigue pendiente, así que la malla y el avance son datos de ejemplo.
+- 2026-11-22 (aprobado por el estudiante): HU-01 se construye sobre `origin/main` con HU-04/HU-05 ya integradas, usa la migración `004_estado_oferta.sql` y no modifica la malla, los prerrequisitos, el avance ni el código de HU-04/HU-05. La oferta publicada pasa a ser la oferta activa de HU-02; las asignaturas se reutilizan por código conservando su `id` para no romper HU-03/HU-04/HU-05.
 
 ## Stack (se define una sola vez)
 - Lenguaje y framework: TypeScript + Express (plantillas EJS)
@@ -37,7 +38,7 @@
 ## Historias
 | Historia | Estado | Cambio de OpenSpec | Fecha | Observaciones |
 |----------|--------|--------------------|-------|----------------|
-| HU-01 | pendiente | — | — | Dependencia base: carga la oferta académica |
+| HU-01 | lista para implementar | hu-01-carga-oferta-academica | 2026-11-22 | Ficha validada en `.cin324/historias/HU-01.md`; integración con HU-02…HU-05; migración `004`; no toca malla, prerrequisitos ni avance |
 | HU-02 | implementada y validada | hu-02-planificador-grilla + ajuste-hu-02-oferta-seccion-agregada | 2026-11-20 | Datos de ejemplo; simulación activa única; OBS-1 resuelta |
 | HU-03 | implementada y validada | hu-03-metricas-dificultad | 2026-11-21 | CU-11/CU-12; métricas por asignatura + docente; solo MAT101 con evaluaciones de ejemplo |
 | HU-04 | implementada y validada | hu-04-malla-cadena (archivado como 2026-11-22-hu-04-malla-cadena) | 2026-11-22 | CU-13/CU-14; estados, cadena transitiva y etiqueta «En curso»; seed unificado con HU-05 en el merge |
