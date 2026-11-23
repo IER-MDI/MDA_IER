@@ -39,7 +39,7 @@
 | HU-01 | pendiente | — | — | Dependencia base: carga la oferta académica |
 | HU-02 | implementada y validada | hu-02-planificador-grilla + ajuste-hu-02-oferta-seccion-agregada | 2026-11-20 | Datos de ejemplo; simulación activa única; OBS-1 resuelta |
 | HU-03 | implementada y validada | hu-03-metricas-dificultad | 2026-11-21 | CU-11/CU-12; métricas por asignatura + docente; solo MAT101 con evaluaciones de ejemplo |
-| HU-04 | implementada (pendiente de validación) | hu-04-malla-cadena | 2026-11-22 | CU-13/CU-14; solo prerrequisitos; 31 pruebas en verde; renumerado aplicado |
+| HU-04 | implementada y validada | hu-04-malla-cadena (archivado como 2026-11-22-hu-04-malla-cadena) | 2026-11-22 | CU-13/CU-14; solo prerrequisitos; 31 pruebas en verde; renumerado aplicado; sin observaciones del estudiante |
 | HU-05 | pendiente | — | — | Depende de HU-04 (malla y prerrequisitos) |
 
 ## Validaciones
@@ -47,6 +47,7 @@
 |----------|---------|--------|-------|
 | HU-02 | `.cin324/validaciones/VAL-HU-02-1.md` | Verificado en el sistema. OBS-1 resuelta (la sección agregada sale de la oferta y vuelve al removerla). OBS-2 tipo F: los 27/28 créditos son límite de los datos de ejemplo. | 2026-11-20 |
 | HU-03 | — (sin observaciones) | Verificado en el sistema: valoraciones visibles en el planificador y «Sin evaluaciones» donde corresponde. | 2026-11-21 |
+| HU-04 | — (sin observaciones) | Verificado por el estudiante: malla con estados, cadena transitiva y etiqueta «En curso»; sin observaciones pendientes. | 2026-11-22 |
 
 ## Cambios posteriores
 | Cambio | Historia afectada | Motivo | Fecha |
