@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { crearBase, type BaseDatos } from "../src/db/conexion";
 import { sembrar } from "../src/db/seed";
 
@@ -49,4 +51,34 @@ export function sumaCreditos(db: BaseDatos, codigos: string[]): number {
     )
     .get(...codigos) as { total: number };
   return fila.total;
+}
+
+export function idOferta(db: BaseDatos, periodo: string): number {
+  const fila = db.prepare("SELECT id FROM oferta_academica WHERE periodo = ?").get(periodo) as
+    | { id: number }
+    | undefined;
+  if (!fila) {
+    throw new Error(`No hay oferta con período ${periodo}`);
+  }
+  return fila.id;
+}
+
+export function estadoOferta(db: BaseDatos, id: number): string {
+  const fila = db.prepare("SELECT estado FROM oferta_academica WHERE id = ?").get(id) as
+    | { estado: string }
+    | undefined;
+  if (!fila) {
+    throw new Error(`No hay oferta con id ${id}`);
+  }
+  return fila.estado;
+}
+
+export function csvEjemplo(): Buffer {
+  return fs.readFileSync(path.join(process.cwd(), "datos", "ejemplo-oferta-2026-3.csv"));
+}
+
+export function csvCon(cuerpo: string): Buffer {
+  const cabecera =
+    "periodo,codigo,nombre,numero,docente,bloques,creditos,cupos,semestreSugerido\n";
+  return Buffer.from(cabecera + cuerpo + "\n", "utf8");
 }

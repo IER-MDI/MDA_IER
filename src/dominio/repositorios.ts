@@ -105,15 +105,39 @@ export function listarSecciones(db: BaseDatos): Seccion[] {
   return filas.map((fila) => armarSeccion(db, fila));
 }
 
+export interface OfertaActiva {
+  id: number;
+  periodo: string;
+  fechaPublicacion: string;
+}
+
+/** Última oferta publicada; es la única que consume el simulador. */
+export function ofertaPublicadaActiva(db: BaseDatos): OfertaActiva | null {
+  const fila = db
+    .prepare(
+      "SELECT id, periodo, fecha_publicacion FROM oferta_academica " +
+        "WHERE estado = 'Publicada' ORDER BY fecha_publicacion DESC, id DESC LIMIT 1"
+    )
+    .get() as { id: number; periodo: string; fecha_publicacion: string } | undefined;
+  return fila
+    ? { id: fila.id, periodo: fila.periodo, fechaPublicacion: fila.fecha_publicacion }
+    : null;
+}
+
 export function listarSeccionesDisponibles(db: BaseDatos, simulacionId: number): Seccion[] {
+  const activa = ofertaPublicadaActiva(db);
+  if (!activa) {
+    return [];
+  }
   const filas = db
     .prepare(
       SELECT_SECCION +
         "JOIN oferta_academica o ON o.id = s.oferta_id " +
-        "WHERE s.id NOT IN (SELECT seccion_id FROM simulacion_seccion WHERE simulacion_id = ?) " +
+        "WHERE o.id = ? AND s.id NOT IN " +
+        "(SELECT seccion_id FROM simulacion_seccion WHERE simulacion_id = ?) " +
         "ORDER BY a.codigo, s.numero"
     )
-    .all(simulacionId) as FilaSeccion[];
+    .all(activa.id, simulacionId) as FilaSeccion[];
   return filas.map((fila) => armarSeccion(db, fila));
 }
 
@@ -156,13 +180,18 @@ export function crearSimulacion(db: BaseDatos, estudianteId: number, nombre = "M
 }
 
 export function listarSeccionesDeSimulacion(db: BaseDatos, simulacionId: number): Seccion[] {
+  const activa = ofertaPublicadaActiva(db);
+  if (!activa) {
+    return [];
+  }
   const filas = db
     .prepare(
       SELECT_SECCION +
         "JOIN simulacion_seccion ss ON ss.seccion_id = s.id " +
-        "WHERE ss.simulacion_id = ? ORDER BY a.codigo, s.numero"
+        "JOIN oferta_academica o ON o.id = s.oferta_id " +
+        "WHERE ss.simulacion_id = ? AND o.id = ? ORDER BY a.codigo, s.numero"
     )
-    .all(simulacionId) as FilaSeccion[];
+    .all(simulacionId, activa.id) as FilaSeccion[];
   return filas.map((fila) => armarSeccion(db, fila));
 }
 
@@ -181,14 +210,19 @@ export function eliminarSeccionDeSimulacion(db: BaseDatos, simulacionId: number,
 }
 
 export function calcularCreditos(db: BaseDatos, simulacionId: number): number {
+  const activa = ofertaPublicadaActiva(db);
+  if (!activa) {
+    return 0;
+  }
   const fila = db
     .prepare(
       "SELECT COALESCE(SUM(a.creditos), 0) AS total FROM simulacion_seccion ss " +
         "JOIN seccion s ON s.id = ss.seccion_id " +
         "JOIN asignatura a ON a.id = s.asignatura_id " +
-        "WHERE ss.simulacion_id = ?"
+        "JOIN oferta_academica o ON o.id = s.oferta_id " +
+        "WHERE ss.simulacion_id = ? AND o.id = ?"
     )
-    .get(simulacionId) as { total: number };
+    .get(simulacionId, activa.id) as { total: number };
   return fila.total;
 }
 

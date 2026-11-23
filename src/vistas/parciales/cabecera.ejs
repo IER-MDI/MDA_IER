@@ -1,18 +1,24 @@
+<%
+  const rolActual = rol === "administrador" ? "administrador" : "estudiante";
+  const etiquetaRol = rolActual === "administrador" ? "Administrador comunitario" : "Estudiante";
+%>
 <header>
   <div>
     <h1><%= locals.tituloPagina || "SGAI — Planificador de horario" %></h1>
     <div class="datos">
-      <%= estudiante.nombre %> · Rol: <span class="rol"><%= rolEtiqueta %></span>
+      <%= estudiante.nombre %> · Rol: <span class="rol"><%= etiquetaRol %></span>
     </div>
   </div>
   <nav class="navegacion">
+    <a href="/carga">Carga de oferta</a>
     <a href="/planificador">Planificador</a>
     <a href="/malla">Malla</a>
   </nav>
   <form method="post" action="/rol" class="en-linea">
     <label for="rol">Rol de demostración</label>
     <select id="rol" name="rol">
-      <option value="estudiante" <%= rol === "estudiante" ? "selected" : "" %>>Estudiante</option>
+      <option value="estudiante" <%= rolActual === "estudiante" ? "selected" : "" %>>Estudiante</option>
+      <option value="administrador" <%= rolActual === "administrador" ? "selected" : "" %>>Administrador comunitario</option>
     </select>
     <button type="submit">Cambiar rol</button>
   </form>

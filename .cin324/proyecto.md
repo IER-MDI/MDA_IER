@@ -38,7 +38,7 @@
 ## Historias
 | Historia | Estado | Cambio de OpenSpec | Fecha | Observaciones |
 |----------|--------|--------------------|-------|----------------|
-| HU-01 | lista para implementar | hu-01-carga-oferta-academica | 2026-11-22 | Ficha validada en `.cin324/historias/HU-01.md`; integración con HU-02…HU-05; migración `004`; no toca malla, prerrequisitos ni avance |
+| HU-01 | implementada y validada | hu-01-carga-oferta-academica | 2026-11-23 | Carga CSV/XLSX, EST-01, oferta activa e integración con HU-02…HU-05; migración `004`; no toca malla, prerrequisitos ni avance; 59 pruebas en verde |
 | HU-02 | implementada y validada | hu-02-planificador-grilla + ajuste-hu-02-oferta-seccion-agregada | 2026-11-20 | Datos de ejemplo; simulación activa única; OBS-1 resuelta |
 | HU-03 | implementada y validada | hu-03-metricas-dificultad | 2026-11-21 | CU-11/CU-12; métricas por asignatura + docente; solo MAT101 con evaluaciones de ejemplo |
 | HU-04 | implementada y validada | hu-04-malla-cadena (archivado como 2026-11-22-hu-04-malla-cadena) | 2026-11-22 | CU-13/CU-14; estados, cadena transitiva y etiqueta «En curso»; seed unificado con HU-05 en el merge |
@@ -47,6 +47,7 @@
 ## Validaciones
 | Historia | Informe | Estado | Fecha |
 |----------|---------|--------|-------|
+| HU-01 | — (sin observaciones) | Verificado en el sistema y con `npm test` (59 pruebas en verde): carga, corrección de mapeo, exclusión, publicación e integración. | 2026-11-23 | Sin cambios en malla, prerrequisitos ni avance. |
 | HU-02 | `.cin324/validaciones/VAL-HU-02-1.md` | Verificado en el sistema. OBS-1 resuelta (la sección agregada sale de la oferta y vuelve al removerla). OBS-2 tipo F: los 27/28 créditos son límite de los datos de ejemplo. | 2026-11-20 |
 | HU-03 | — (sin observaciones) | Verificado en el sistema: valoraciones visibles en el planificador y «Sin evaluaciones» donde corresponde. | 2026-11-21 |
 | HU-04 | — (sin observaciones) | Verificado por el estudiante: malla con estados, cadena transitiva y etiqueta «En curso»; sin observaciones pendientes. | 2026-11-22 |

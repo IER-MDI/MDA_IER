@@ -56,7 +56,7 @@ export function crearRutasPlanificador(db: BaseDatos): Router {
 
   router.post("/rol", (req, res) => {
     const solicitado = typeof req.body?.rol === "string" ? req.body.rol : "estudiante";
-    const rol = solicitado === "estudiante" ? "estudiante" : "estudiante";
+    const rol = solicitado === "administrador" ? "administrador" : "estudiante";
     res.cookie("rol", rol);
     res.redirect("/planificador");
   });

@@ -11,9 +11,9 @@
 **Sistema de Gestión Académica e Inscripción Interactiva (SGAI)**
 Plataforma orientada a optimizar el proceso de preinscripción e inscripción de asignaturas universitarias mediante la automatización de la consolidación de oferta académica, visualización de carga de trabajo, simulación interactiva de horarios, proyección completa del avance curricular y centralización de evaluaciones y dificultad percibida por los estudiantes.
 
-## Aplicación web (HU-02 — Planificador · HU-03 — Referencias comunitarias · HU-04 — Malla interactiva · HU-05 — Tiempo restante)
+## Aplicación web (HU-01 — Carga de oferta · HU-02 — Planificador · HU-03 — Referencias comunitarias · HU-04 — Malla interactiva · HU-05 — Tiempo restante)
 
-Aplicación TypeScript + Express + EJS con SQLite. Implementa la simulación de horario de HU-02, la consulta de valoración docente y dificultad de HU-03, la malla interactiva con cadena de prerrequisitos de HU-04 y la estimación de semestres restantes de HU-05, con datos de ejemplo de la oferta 2026-2 (la carga de Excel llegará con HU-01).
+Aplicación TypeScript + Express + EJS con SQLite. Implementa la carga y traducción de planillas de HU-01, la simulación de horario de HU-02, la consulta de valoración docente y dificultad de HU-03, la malla interactiva con cadena de prerrequisitos de HU-04 y la estimación de semestres restantes de HU-05. Sin una carga nueva, el simulador usa los datos de ejemplo de la oferta 2026-2; al publicar una planilla, esa oferta pasa a ser la oferta activa.
 
 ### Requisitos
 - Node.js 20 o superior (probado con Node 26)
@@ -33,7 +33,12 @@ Abre `http://localhost:3000`. La base se crea en `data/app.db` y los datos de ej
 npm test
 ```
 
-Corre las pruebas de los escenarios Gherkin de HU-02, HU-03, HU-04 y HU-05, la remoción de secciones, el solapamiento de bloques, los promedios de evaluaciones, el estado y la cadena de la malla, la ruta crítica de prerrequisitos y las rutas HTTP.
+Corre las pruebas de los escenarios Gherkin de HU-01 a HU-05: carga y traducción de planillas (CSV/XLSX), estados de EST-01, publicación de la oferta activa, remoción de secciones, solapamiento de bloques, promedios de evaluaciones, estado y cadena de la malla, ruta crítica de prerrequisitos, integración entre historias y rutas HTTP.
+
+### Carga de oferta (HU-01)
+En `http://localhost:3000/carga` se sube una planilla `.xlsx` o `.csv` (también se puede arrastrar). El flujo muestra el mapeo de columnas editable, la vista previa de las secciones interpretadas y las filas inválidas con número de fila y motivo. Hay una planilla de ejemplo descargable en esa pantalla (`datos/ejemplo-oferta-2026-3.csv`), que simula la publicación de la Universidad.
+
+Al publicar, la oferta queda en estado **Publicada** y pasa a ser la oferta activa del simulador. Si la simulación tenía secciones de una oferta anterior, se retiran para no mezclar períodos; las asignaturas se reutilizan por código, de modo que las evaluaciones, la malla y el avance siguen asociados. Una asignatura nueva no se agrega automáticamente a la malla.
 
 ### Datos de ejemplo
 Carrera «Ingeniería Civil Informática» con tope de **30 créditos** y un estudiante demo («Mi horario», estado «en armado»).
@@ -72,6 +77,12 @@ La malla tiene 13 asignaturas: las 8 de la oferta más ECU301, MAT201, MAT202, M
 
 La cadena pendiente más larga es `MAT102 Cálculo II → MAT202 Ecuaciones Diferenciales → MAT301 Análisis Numérico → MAT401 Proyecto de Título`. Como son 4 asignaturas sucesivas, el mínimo estimado es de **4 semestres**. ECU301 y BD101 son pendientes cortos (no críticos): postergarlos no cambia el mínimo.
 
+### Recorrido manual de HU-01
+1. **Carga:** abre `/carga`, descarga la planilla de ejemplo y súbela. Debes ver las columnas mapeadas, dos secciones válidas (MAT101 y NUEV101) y el error «Fila 4 — sin código».
+2. **Corrección y exclusión:** pulsa «Aplicar mapeo y validar» y luego «Confirmar exclusión y continuar». La oferta queda en estado **Estructurada**.
+3. **Publicación:** pulsa «Confirmar y publicar oferta». El planificador debe mostrar la oferta 2026-3; la simulación queda vacía.
+4. **Integración:** MAT101 / Prof. Ana Pérez sigue mostrando **4,0 de 5** y **4,3 de 5**; NUEV101 muestra «Sin evaluaciones». La malla sigue con 13 asignaturas y el mínimo de HU-05 en 4 semestres.
+
 ### Recorrido manual de los escenarios
 1. **Créditos:** agrega MAT101 (5) y luego MAT102 (6). El total debe mostrar **11 de 30 créditos** y ambas secciones en la grilla.
 2. **Choque:** con MAT101 en el horario, intenta agregar FIS101. Debe aparecer «Choque de horario con Cálculo I sección 1» y el total seguir en 11.
@@ -99,8 +110,13 @@ src/server.ts               # arranca el servidor en el puerto 3000
 src/db/conexion.ts          # SQLite + migraciones
 src/db/migrations/          # migraciones SQL numeradas
 src/db/seed.ts              # datos de ejemplo idempotentes
-src/dominio/                # tipos, horario, métricas, malla, ruta crítica y repositorios
-src/servicios/simulacion.ts # alta, baja, créditos y validaciones
+datos/                      # planilla de ejemplo de la Universidad simulada
+src/dominio/                # tipos, horario, métricas, malla, ruta crítica, estados y repositorios
+src/servicios/leerPlanilla.ts    # adaptador CSV/XLSX
+src/servicios/parsearOferta.ts   # mapeo, validación y bloques horarios
+src/servicios/publicarOferta.ts  # EST-01, borradores y publicación
+src/servicios/simulacion.ts      # alta, baja, créditos y validaciones
+src/rutas/carga.ts          # rutas y mensajes de HU-01
 src/rutas/planificador.ts   # rutas y mensajes del planificador
 src/rutas/malla.ts          # ruta GET /malla y cadena de prerrequisitos
 src/rutas/tiempo-restante.ts # consulta y simulación de semestres restantes
@@ -113,4 +129,6 @@ tests/                      # pruebas Vitest + supertest
 - RP-11 se aplica solo como anonimato (no se guarda ni muestra la identidad); el resto de los requisitos no funcionales se leen como contexto y no se implementan.
 - La malla es de solo lectura: no registra ni modifica el avance curricular; el «En curso» es una etiqueta, no un cuarto color.
 - La simulación de reprobación/postergación de HU-05 no se guarda: viaja en la URL y se recalcula al mostrar la pantalla.
-- Fuera de alcance: registrar evaluaciones o moderar comentarios (RP-12), carga de Excel (HU-01), correquisitos y confirmar/exportar la simulación.
+- La oferta publicada por HU-01 es la oferta activa; publicar una nueva retira de la simulación las secciones del período anterior.
+- No hay autenticación real: el selector de rol de demostración distingue «Estudiante» de «Administrador comunitario».
+- Fuera de alcance: registrar evaluaciones o moderar comentarios (RP-12), correquisitos, agregar asignaturas a la malla desde la planilla y confirmar/exportar la simulación.
