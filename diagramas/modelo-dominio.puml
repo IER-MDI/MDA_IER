@@ -25,7 +25,7 @@ class "Asignatura Cursada" as AsignaturaCursada {
     periodo
 }
 
-class "Oferta Académica" as OfertaAcademia {
+class "Oferta Académica" as OfertaAcademica {
     periodo
     fechaPublicacion
 }
@@ -60,7 +60,7 @@ Asignatura "1" -- "0..*" Sección : es una oferta de >
 Asignatura "1" -- "0..*" Asignatura : es prerrequisito de >
 Asignatura "1" -- "0..*" Evaluación : valora la dificultad de >
 
-OfertaAcademia "1" *-- "1..*" Sección : contiene >
+OfertaAcademica "1" *-- "1..*" Sección : contiene >
 SimulacionHorario "0..*" -- "0..*" Sección : incluye >
 
 @enduml

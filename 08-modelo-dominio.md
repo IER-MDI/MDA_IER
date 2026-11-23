@@ -41,3 +41,16 @@ Archivo fuente: [`./diagramas/modelo-dominio.puml`](https://github.com/IER-MDI/M
 - **Atributos y datos externos:** Docente, Bloque Horario y Período Académico no se modelaron como clases porque el sistema no almacena información compleja propia sobre ellos, registrándose como simples atributos de texto u horario.
 - **Privacidad y anonimato:** La clase *Evaluación* no se asocia con *Estudiante* para garantizar que las valoraciones sean completamente anónimas y no queden vinculadas a ningún identificador personal.
 - **Atributos derivados y lógica de negocio:** Datos como la valoración promedio, la dificultad promedio, el tiempo restante para egresar y los créditos totales de la simulación se calculan de forma derivada a partir de otras clases y relaciones del modelo.
+
+## Mapeo al código
+
+| Clase del modelo | Tipo o tabla en el código |
+|------------------|---------------------------|
+| Estudiante | Tabla `estudiante`; se identifica con `estudianteId` en `src/dominio/repositorios.ts`. |
+| Carrera | Tabla `carrera`; `obtenerCarreraDelEstudiante` devuelve `{ id, nombre }` en `src/dominio/repositorios.ts`. |
+| Asignatura | Tabla `asignatura`; tipos `AsignaturaDeSeccion` y `AsignaturaEnMalla` en `src/dominio/tipos.ts`. |
+| Asignatura Cursada | Tabla `asignatura_cursada`; el avance se lee con `listarAvance` y las asignaturas de la malla sin resultado «aprobada» se exponen como el tipo derivado `AsignaturaPendiente` en `src/dominio/tipos.ts`. |
+| Oferta Académica | Tabla `oferta_academica`; estados y transiciones en `src/dominio/estadoOferta.ts`. |
+| Sección | Tabla `seccion`; tipo `Seccion` en `src/dominio/tipos.ts`. |
+| Simulación de Horario | Tabla `simulacion`; tipo `Simulacion` en `src/dominio/tipos.ts`. |
+| Evaluación | Tabla `evaluacion`; tipo `Evaluacion` en `src/dominio/tipos.ts`. |
