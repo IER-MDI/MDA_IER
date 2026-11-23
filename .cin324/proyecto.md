@@ -42,7 +42,7 @@
 | HU-02 | implementada y validada | hu-02-planificador-grilla + ajuste-hu-02-oferta-seccion-agregada | 2026-11-20 | Datos de ejemplo; simulación activa única; OBS-1 resuelta |
 | HU-03 | implementada y validada | hu-03-metricas-dificultad | 2026-11-21 | CU-11/CU-12; métricas por asignatura + docente; solo MAT101 con evaluaciones de ejemplo |
 | HU-04 | implementada y validada | hu-04-malla-cadena (archivado como 2026-11-22-hu-04-malla-cadena) | 2026-11-22 | CU-13/CU-14; estados, cadena transitiva y etiqueta «En curso»; seed unificado con HU-05 en el merge |
-| HU-05 | implementada, pendiente de validación | hu-05-tiempo-restante | 2026-11-22 | CU-15/CU-16; ruta crítica sobre la malla compartida; simulación no persistida |
+| HU-05 | implementada y archivada | hu-05-tiempo-restante (archivado como 2026-11-23-hu-05-tiempo-restante) | 2026-11-23 | CU-15/CU-16; ruta crítica sobre la malla compartida; simulación no persistida; spec `tiempo-restante` integrada en `openspec/specs/` |
 
 ## Validaciones
 | Historia | Informe | Estado | Fecha |
