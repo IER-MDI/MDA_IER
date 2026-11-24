@@ -62,8 +62,14 @@ Característica: Simulación de horario con control de carga académica
     Cuando el estudiante remueve esa sección de su simulación
     Entonces la sección vuelve a mostrarse en el listado de secciones de la oferta académica
 
-  Escenario: Seleccionar una asignatura para dejarla en estado tentativo
-    Dado 
+  
+    ///cambio/// Caracteristica: Gestion de asignatura tentativa
+  Escenario: Agregar y confirmar la asignatura en estado "tentativo".
+    Dado que un estudiante este en su malla currilar
+    Y dado que la asigantura "Calculo II" no se encuentre Incorporada
+    Cuando el estudiante agrega la asigantura a su malla
+    Entonces el sistema la registra con estado "tentaivo"
+    Y la asignatura aparece en la malla curricular
 ```
 
 ## HU-03: Consulta de Referencias Comunitaria y Dificultad Docente
@@ -113,13 +119,6 @@ Característica: Consulta de la cadena de prerrequisitos de una asignatura
     Entonces el sistema informa que no tiene prerrequisitos
     Y señala todas las asignaturas que dependen de ella
 
-  ///cambio/// Caracteristica: Gestion de asignatura tentativa
-Escenario: Agregar y confirmar la asignatura en estado "tentativo".
-  Dado que un estudiante este en su malla currilar
-  Y dado que la asigantura "Calculo II" no se encuentre Incorporada
-  Cuando el estudiante agrega la asigantura a su malla
-  Entonces el sistema la registra con estado "tentaivo"
-  Y la asignatura aparece en la malla curricular
 
 Escenario: Cuando el estudiante accede a su planificador
   entonces visualiza que la asignatura "Calculo II"
