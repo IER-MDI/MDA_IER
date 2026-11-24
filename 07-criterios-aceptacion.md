@@ -113,14 +113,19 @@ Característica: Consulta de la cadena de prerrequisitos de una asignatura
     Entonces el sistema informa que no tiene prerrequisitos
     Y señala todas las asignaturas que dependen de ella
 
-Caracteristica:Gestion de asignatura tentativa
-Escenario: Una asignatura con prerrequisitos y dependientes muestra su cadena y su estado
-    Dado un estudiante de una carrera cuya malla indica que Cálculo I es prerrequisito de Cálculo II
-    Y que Cálculo II es prerrequisito de Ecuaciones Diferenciales
-    Y que el estudiante aprobó Cálculo I y no ha aprobado las otras dos
-    Cuando el estudiante consulta Cálculo II
-    Entonces el sistema señala Cálculo I como prerrequisito y Ecuaciones Diferenciales como asignatura que depende de Cálculo II
-    Y Cálculo I se presenta como aprobada, Cálculo II como disponible y Ecuaciones Diferenciales como bloqueada
+  ///cambio/// Caracteristica: Gestion de asignatura tentativa
+Escenario: Agregar y confirmar la asignatura en estado "tentativo".
+  Dado que un estudiante este en su malla currilar
+  Y dado que la asigantura "Calculo II" no se encuentre Incorporada
+  Cuando el estudiante agrega la asigantura a su malla
+  Entonces el sistema la registra con estado "tentaivo"
+  Y la asignatura aparece en la malla curricular
+
+Escenario: Cuando el estudiante accede a su planificador
+  entonces visualiza que la asignatura "Calculo II"
+  y visualiza que la asignatura se registra como "tentativa"
+  y el estudiante disponde de la opcion "confirmar"
+
 ```
 
 ## HU-05: Estimación del Tiempo Restante de Titulación
