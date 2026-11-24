@@ -15,6 +15,7 @@ Como **estudiante**, quiero **simular combinaciones de horarios en una grilla in
   - **CA1:** El sistema permite agregar y remover secciones de la grilla horaria mediante interacción visual. Al agregar una sección, esta deja de mostrarse en el listado de secciones de la oferta académica y queda solo en la simulación; al removerla, vuelve a mostrarse en la oferta.
   - **CA2:** El contador de créditos totales se actualiza dinámicamente según las secciones seleccionadas.
   - **CA3:** El sistema bloquea o advierte de inmediato si una sección genera un choque de horario o supera el tope crediticio.
+  - **CA4:** El sistema debe permitir inscribir una asignatura y dejarla en estado tentativo.
 
 ## HU-03: Consulta de Referencias Comunitaria y Dificultad Docente
 Como **estudiante**, quiero **ver las calificaciones comunitarias de profesores y el nivel de dificultad atribuido a cada materia**, para **tomar decisiones informadas al armar mi horario**.
@@ -39,3 +40,4 @@ Como **estudiante**, quiero **conocer la cantidad mínima estimada de semestres 
   - **CA2:** Si se simula reprobar o postergar un ramo, el indicador refleja el potencial retraso en semestres.
   - **CA3:** El sistema señala qué asignaturas pendientes son cursables —todos sus prerrequisitos están aprobados— y cuáles están bloqueadas por falta de requisitos. El texto de asignaturas cursables no incluye las bloqueadas, que siguen visibles en el listado con ese estado.
   - **CA4:** El sistema clasifica cada asignatura pendiente con una prioridad: **crítica** si pertenece a la cadena más larga de prerrequisitos y retrasa la titulación; **necesaria** si es prerrequisito de otra asignatura pendiente fuera de esa cadena y afecta el avance desde el próximo semestre; **postergable** si no tiene dependientes pendientes y no afecta el tiempo de titulación.
+  - **CA5:** El sistema debe mostrar que asignaturas posibles se pueden tomar para poder agilizar el avance. Se crean nuevos escenarios con respecto a la navegación de asignaturas en estado tentativo.
