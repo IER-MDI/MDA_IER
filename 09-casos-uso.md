@@ -35,9 +35,9 @@ HU-02: Planificador en Grilla Interactiva
 
  
 ## Diagrama de casos de uso
-![Casos de uso](./diagramas/CU-02.png)
+![Casos de uso](./diagramas/CU-02(Eval2).png)
  
-Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-02.drawio)
+Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-02(Eval2).drawio)
  
 ## Casos de uso y su origen
 | ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
