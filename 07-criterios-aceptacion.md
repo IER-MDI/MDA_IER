@@ -61,6 +61,9 @@ Característica: Simulación de horario con control de carga académica
     Y la sección aparece en las secciones de su simulación
     Cuando el estudiante remueve esa sección de su simulación
     Entonces la sección vuelve a mostrarse en el listado de secciones de la oferta académica
+
+  Escenario: Seleccionar una asignatura para dejarla en estado tentativo
+    Dado 
 ```
 
 ## HU-03: Consulta de Referencias Comunitaria y Dificultad Docente
@@ -109,6 +112,15 @@ Característica: Consulta de la cadena de prerrequisitos de una asignatura
     Cuando el estudiante consulta esa asignatura
     Entonces el sistema informa que no tiene prerrequisitos
     Y señala todas las asignaturas que dependen de ella
+
+Caracteristica:Gestion de asignatura tentativa
+Escenario: Una asignatura con prerrequisitos y dependientes muestra su cadena y su estado
+    Dado un estudiante de una carrera cuya malla indica que Cálculo I es prerrequisito de Cálculo II
+    Y que Cálculo II es prerrequisito de Ecuaciones Diferenciales
+    Y que el estudiante aprobó Cálculo I y no ha aprobado las otras dos
+    Cuando el estudiante consulta Cálculo II
+    Entonces el sistema señala Cálculo I como prerrequisito y Ecuaciones Diferenciales como asignatura que depende de Cálculo II
+    Y Cálculo I se presenta como aprobada, Cálculo II como disponible y Ecuaciones Diferenciales como bloqueada
 ```
 
 ## HU-05: Estimación del Tiempo Restante de Titulación
