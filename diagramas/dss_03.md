@@ -1,6 +1,6 @@
 # DSS-03 — Registro y confirmación de asignatura en estado tentativo
 
-Cambio de Evaluación 2 (`EVALUACION2.md`): el sistema sugiere asignaturas para agilizar el avance (HU-05), el estudiante marca una como **tentativa** desde la malla (HU-04/CU-15), la ve en el planificador y la **confirma** desde ahí (HU-02/CU-06). La recomendación se modela como *Recomendación de Asignatura* con estado `tentativo` → `confirmada`, asociada a la *Simulación de Horario* activa (`08-modelo-dominio.md`). Su ciclo de vida se detalla en [EST-02](./est-02.puml).
+Cambio: el sistema sugiere asignaturas para agilizar el avance (HU-05), el estudiante marca una como **tentativa** desde la malla (HU-04/CU-15), la ve en el planificador y la **confirma** desde ahí (HU-02/CU-06). La recomendación se modela como *Recomendación de Asignatura* con estado `tentativo` → `confirmada`, asociada a la *Simulación de Horario* activa. Su ciclo de vida se detalla en [EST-02](./est-02.puml).
 
 ```mermaid
 sequenceDiagram
