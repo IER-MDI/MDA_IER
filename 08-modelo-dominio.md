@@ -45,7 +45,8 @@ Archivo fuente: [`./diagramas/modelo-dominio.puml`](https://github.com/IER-MDI/M
 
 # Después de los cambios 
 
-A partir del cambio de requerimientos de la Evaluación 2, el modelo de dominio se amplía para representar la planificación académica del estudiante con asignaturas recomendadas, tentativas y confirmadas.
+<img width="1457" height="897" alt="modelo-dominio2" src="https://github.com/user-attachments/assets/4a9463e6-3a94-466c-9b70-885daaf5c0a5" />
+
 
 ### Nuevos elementos incorporados
 
