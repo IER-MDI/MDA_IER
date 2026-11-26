@@ -86,10 +86,26 @@ sequenceDiagram
 
 [Diagrama DSS-03 (fuente Mermaid y notas)](./diagramas/dss_03.md) · [Imagen PNG](./diagramas/dss_03.png)
 
-Variantes representadas:
+| Artefacto | Cambio |
+|-----------|--------|
+| HU-02 | CA4: inscribir una asignatura y dejarla en estado tentativo; verse en el planificador y confirmarse ahí. |
+| HU-05 | CA5: mostrar qué asignaturas posibles se pueden tomar para agilizar el avance; nuevos escenarios de navegación. |
+| HU-04 / CU-15 | Marcar la asignatura como tentativa desde la malla. |
+| CU-06 | Confirmar la asignatura tentativa desde el planificador; extensión «Informar sobre asignaturas en estado tentativa» sobre CU-07. |
+| Modelo de dominio | Nueva clase *Recomendación de Asignatura* con `estado` (`tentativo`/`confirmada`), `fechaPropuesta` y `fechaConfirmacion`, asociada a *Simulación de Horario* y a *Asignatura*. |
+| Diagrama de estado | Nuevo [EST-02](./11-diagramas-estado.md#est-02--ciclo-de-vida-de-recomendación-de-asignatura-avance-académico) para el ciclo de vida de la recomendación. |
 
-- **alt — Confirmación del estudiante:** al confirmar, la recomendación pasa a `confirmada` y registra `fechaConfirmacion`; si no confirma, permanece `tentativo` sin incorporarse a la simulación.
-- **opt — Sección ofertada:** la incorporación a la grilla solo se intenta si la asignatura tiene sección en la oferta activa (una asignatura de la malla puede no tenerla).
-- **alt — Validación de carga:** se reutilizan las reglas de choque de horario y tope de créditos descritas en DSS-02 (CU-10/CU-11); ante un conflicto se informa el motivo y no se agrega la sección.
 
-- **loop:** modificar horario repetidamente.
+## Variantes representadas en el diagrama
+
+- **alt — Confirmación del estudiante:** si confirma (CU-06), la recomendación pasa a `confirmada` y registra `fechaConfirmacion`; si no, permanece `tentativo` sin incorporarse a la simulación.
+- **opt — Sección ofertada:** la incorporación a la grilla solo se intenta si la asignatura tiene sección en la oferta activa, porque una asignatura de la malla puede no tenerla.
+- **alt — Validación de carga:** se aplican las reglas de DSS-02; ante un choque o exceso de créditos se informa el motivo y no se agrega la sección, aunque la recomendación quede confirmada.
+
+## Trazabilidad del cambio
+
+| Cambio | Historia / criterio | Caso de uso | Secuencia | Estado | Clase del dominio |
+|--------|---------------------|-------------|-----------|--------|-------------------|
+| Asignatura en estado tentativo | HU-04 + HU-02 CA4 | CU-15, CU-06, extensión de CU-07 | DSS-03 | EST-02 | Recomendación de Asignatura, Simulación de Horario |
+| Recomendación de avance | HU-05 CA5 | CU-17 | DSS-03 | EST-02 | Recomendación de Asignatura, Asignatura |
+
