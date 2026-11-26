@@ -43,7 +43,7 @@ Archivo fuente: [`./diagramas/modelo-dominio.puml`](https://github.com/IER-MDI/M
 - **Atributos derivados y lógica de negocio:** Datos como la valoración promedio, la dificultad promedio, el tiempo restante para egresar y los créditos totales de la simulación se calculan de forma derivada a partir de otras clases y relaciones del modelo.
 
 
-## Después de los cambios (Evaluación 2)
+# Después de los cambios 
 
 A partir del cambio de requerimientos de la Evaluación 2, el modelo de dominio se amplía para representar la planificación académica del estudiante con asignaturas recomendadas, tentativas y confirmadas.
 
