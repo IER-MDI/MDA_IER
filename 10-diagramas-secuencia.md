@@ -33,9 +33,9 @@ Variantes representadas:
 - **loop:** modificar horario repetidamente.
 
 
-## DSS-03 — Registro y confirmación de asignatura en estado tentativo (Evaluación 2)
-- Casos de uso: [CU-06](./09-casos-uso.md) y [CU-15](./09-casos-uso.md); extensión «Informar sobre asignaturas en estado tentativa» de CU-07; relacionado con CU-14, CU-16 y CU-17
-- Historias: [HU-05 CA5](./04-historias-usuario.md#hu-05) (asignaturas posibles para agilizar el avance), [HU-04](./04-historias-usuario.md#hu-04) (marca como tentativa en la malla) y [HU-02 CA4](./04-historias-usuario.md#hu-02) (confirmación desde el planificador)
+## DSS-03 — Registro y confirmación de asignatura en estado tentativo 
+- Casos de uso: [CU-06](./09-casos-uso.md) y [CU-15](./09-casos-uso.md)
+- Historias: [HU-05 CA5](./04-historias-usuario.md#hu-05) , [HU-04](./04-historias-usuario.md#hu-04) (marca como tentativa en la malla) y [HU-02 CA4](./04-historias-usuario.md#hu-02) 
 - Diagrama de estado relacionado: [EST-02 — Recomendación de Asignatura](./11-diagramas-estado.md#est-02--ciclo-de-vida-de-recomendación-de-asignatura-avance-académico), con transición `tentativo` → `confirmada`
 - Sistemas externos que participan: Ninguno
 
@@ -85,6 +85,19 @@ sequenceDiagram
 ```
 
 [Diagrama DSS-03 (fuente Mermaid y notas)](./diagramas/dss_03.md) · [Imagen PNG](./diagramas/dss_03.png)
+
+## Participantes
+
+| Participante | Rol en el flujo |
+|--------------|-----------------|
+| Estudiante | Actor principal: consulta el avance, marca la asignatura como tentativa y la confirma desde el planificador. |
+| Tiempo restante (HU-05) | Calcula la ruta crítica y muestra las asignaturas posibles que agilizan el avance (CA5). |
+| Malla interactiva (HU-04) | Muestra estados, prerrequisitos y dependientes; permite marcar la asignatura como tentativa (CU-15). |
+| Planificador (HU-02) | Informa sobre asignaturas tentativas (extensión de CU-07) y permite confirmarlas (CU-06). |
+| Almacén de recomendaciones | Persiste la *Recomendación de Asignatura* con `estado`, `fechaPropuesta` y `fechaConfirmacion`, asociada a la simulación activa. |
+
+
+## Cambios
 
 | Artefacto | Cambio |
 |-----------|--------|
