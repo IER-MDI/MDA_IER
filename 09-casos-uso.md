@@ -77,9 +77,9 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-03.drawio)
 
  
 ## Diagrama de casos de uso
-![Casos de uso](./diagramas/CU-04.png)
+![Casos de uso](./diagramas/CU-04(EV2).png)
  
-Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-04.drawio)
+Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-04(EV2).drawio)
  
 ## Casos de uso y su origen
 | ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
