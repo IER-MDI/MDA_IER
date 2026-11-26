@@ -35,7 +35,7 @@ Variantes representadas:
 
 ## DSS-03 — Registro y confirmación de asignatura en estado tentativo 
 - Casos de uso: [CU-06](./09-casos-uso.md) y [CU-15](./09-casos-uso.md)
-- Historias: [HU-05 CA5](./04-historias-usuario.md#hu-05) , [HU-04](./04-historias-usuario.md#hu-04) (marca como tentativa en la malla) y [HU-02 CA4](./04-historias-usuario.md#hu-02) 
+- Historias: [HU-05 CA5](./04-historias-usuario.md#hu-05) , [HU-04](./04-historias-usuario.md#hu-04), [HU-02 CA4](./04-historias-usuario.md#hu-02) 
 - Diagrama de estado relacionado: [EST-02 — Recomendación de Asignatura](./11-diagramas-estado.md#est-02--ciclo-de-vida-de-recomendación-de-asignatura-avance-académico), con transición `tentativo` → `confirmada`
 - Sistemas externos que participan: Ninguno
 
