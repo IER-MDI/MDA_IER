@@ -44,11 +44,11 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-02(Eval2).dra
 |----|-----------------------------------|-----------------|---------------------|
 | CU-05 | Simular horario semestral | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
 | CU-06 | Confirmar asignatura tentativa desde el planificcador| Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
-| CU-06 | Agregar sección a grilla horaria | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
-| CU-07 | Remover sección de la grilla horaria | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
-| CU-08 | Consultar créditos totales de la carga académica | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
-| CU-09 | Advertir choque de horario | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
-| CU-10 | Advertir exceso del tope crediticio | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-07 | Agregar sección a grilla horaria | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-08 | Remover sección de la grilla horaria | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-09 | Consultar créditos totales de la carga académica | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-10 | Advertir choque de horario | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
+| CU-11 | Advertir exceso del tope crediticio | Estudiante | [HU-02](./04-historias-usuario.md#hu-02) |
 
 # ! Estos fueron añadidos después de la fecha de entrega
 ## HU-03: Consulta de Referencias Comunitaria y Dificultad Docente
@@ -66,8 +66,8 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-03.drawio)
 ## Casos de uso y su origen
 | ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
 |----|-----------------------------------|-----------------|---------------------|
-| CU-11 | Consultar valoración comunitaria del docente | Estudiante | [HU-03](./04-historias-usuario.md#hu-03) |
-| CU-12 | Consultar nivel de dificultad de la asignatura | Estudiante | [HU-03](./04-historias-usuario.md#hu-03) |
+| CU-12 | Consultar valoración comunitaria del docente | Estudiante | [HU-03](./04-historias-usuario.md#hu-03) |
+| CU-13 | Consultar nivel de dificultad de la asignatura | Estudiante | [HU-03](./04-historias-usuario.md#hu-03) |
 
 ## HU-04: Malla Interactiva y Cadena Crítica Curricular
 ## Actores
@@ -84,9 +84,9 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-04.drawio)
 ## Casos de uso y su origen
 | ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
 |----|-----------------------------------|-----------------|---------------------|
-| CU-13 | Visualizar malla interactiva con estado de asignaturas | Estudiante | [HU-04](./04-historias-usuario.md#hu-04) |
-| CU-14 | Marcar asignatura como tentativa en malla | Estudiante | [HU-04](./04-historias-usuario.md#hu-04) |
-| CU-15 | Consultar cadena de prerrequisitos de una asignatura | Estudiante | [HU-04](./04-historias-usuario.md#hu-04) |
+| CU-14 | Visualizar malla interactiva con estado de asignaturas | Estudiante | [HU-04](./04-historias-usuario.md#hu-04) |
+| CU-15 | Marcar asignatura como tentativa en malla | Estudiante | [HU-04](./04-historias-usuario.md#hu-04) |
+| CU-16 | Consultar cadena de prerrequisitos de una asignatura | Estudiante | [HU-04](./04-historias-usuario.md#hu-04) |
 
 ## HU-05: Estimación del Tiempo Restante de Titulación
 ## Actores
@@ -103,8 +103,8 @@ Archivo fuente: [`./diagramas/casos-de-uso.drawio`](./diagramas/CU-05.drawio)
 ## Casos de uso y su origen
 | ID | Caso de uso (objetivo del actor) | Actor principal | Historia de origen |
 |----|-----------------------------------|-----------------|---------------------|
-| CU-16 | Consultar semestres mínimos restantes para titularse | Estudiante | [HU-05](./04-historias-usuario.md#hu-05) |
-| CU-17 | Simular reprobación o postergación de una asignatura | Estudiante | [HU-05](./04-historias-usuario.md#hu-05) |
+| CU-17 | Consultar semestres mínimos restantes para titularse | Estudiante | [HU-05](./04-historias-usuario.md#hu-05) |
+| CU-18 | Simular reprobación o postergación de una asignatura | Estudiante | [HU-05](./04-historias-usuario.md#hu-05) |
 
 
 
