@@ -41,3 +41,43 @@ Archivo fuente: [`./diagramas/modelo-dominio.puml`](https://github.com/IER-MDI/M
 - **Atributos y datos externos:** Docente, Bloque Horario y Período Académico no se modelaron como clases porque el sistema no almacena información compleja propia sobre ellos, registrándose como simples atributos de texto u horario.
 - **Privacidad y anonimato:** La clase *Evaluación* no se asocia con *Estudiante* para garantizar que las valoraciones sean completamente anónimas y no queden vinculadas a ningún identificador personal.
 - **Atributos derivados y lógica de negocio:** Datos como la valoración promedio, la dificultad promedio, el tiempo restante para egresar y los créditos totales de la simulación se calculan de forma derivada a partir de otras clases y relaciones del modelo.
+
+
+## Después de los cambios (Evaluación 2)
+
+A partir del cambio de requerimientos de la Evaluación 2, el modelo de dominio se amplía para representar la planificación académica del estudiante con asignaturas recomendadas, tentativas y confirmadas.
+
+### Nuevos elementos incorporados
+
+| Elemento nuevo | Descripción |
+|---|---|
+| Recomendación de Asignatura | Representa una asignatura sugerida al estudiante para optimizar su avance curricular. |
+| estado | Indica el estado de la recomendación, pudiendo ser `tentativo` o `confirmada`. |
+| fechaPropuesta | Fecha en la que la asignatura fue sugerida o agregada al planificador. |
+| fechaConfirmacion | Fecha en la que el estudiante confirma la asignatura desde el planificador. |
+
+### Nuevas asociaciones
+
+| Asociación | Clases | Multiplicidades | Justificación |
+|---|---|---|---|
+| contiene propuesta | Simulación de Horario – Recomendación de Asignatura | 1 a 0..* | Una simulación puede contener varias recomendaciones de asignaturas. |
+| recomienda | Recomendación de Asignatura – Asignatura | 0..* a 1 | Cada recomendación corresponde a una asignatura específica. Una asignatura puede estar presente en distintas recomendaciones. |
+
+### Cambios realizados en el modelo
+
+- Se **agrega la clase `Recomendación de Asignatura`** al modelo de dominio.
+- Se incorpora el atributo **`estado`** para distinguir si una asignatura está en condición **tentativa** o **confirmada**.
+- Se relaciona la nueva clase con **`Simulación de Horario`**, ya que las recomendaciones aparecen dentro del planificador.
+- Se relaciona la nueva clase con **`Asignatura`**, porque cada recomendación corresponde a un ramo concreto de la malla.
+- Se mantiene separada de **`Asignatura Cursada`**, ya que una asignatura confirmada en el planificador **no significa** que haya sido aprobada o cursada.
+- Este cambio da soporte a los requerimientos de la **HU-02** y la **HU-05**, permitiendo mostrar asignaturas sugeridas, agregarlas en estado tentativo y confirmarlas desde el planificador.
+
+### Resumen del impacto
+
+Antes del cambio, el modelo solo representaba la simulación de horario y el avance curricular del estudiante.
+
+Después del cambio, el modelo también representa el flujo de planificación académica del estudiante, permitiendo:
+- recomendar asignaturas,
+- agregarlas en estado tentativo,
+- confirmarlas desde el planificador,
+- y mantener separada la planificación del historial académico real.
