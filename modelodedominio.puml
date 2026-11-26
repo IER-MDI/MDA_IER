@@ -1,0 +1,88 @@
+@startuml
+
+left to right direction
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam roundcorner 6
+skinparam class {
+  BackgroundColor #F7F9FC
+  BorderColor #64748B
+  FontColor #0F172A
+  AttributeFontColor #334155
+}
+
+class Estudiante {
+  nombre
+  rut
+}
+class Carrera {
+  nombre
+  duracionSemestres
+  topeCreditosSemestre
+}
+class Asignatura {
+  codigo
+  nombre
+  creditos
+  semestreSugerido
+}
+class "Asignatura Cursada" as AsignaturaCursada {
+  resultado
+  periodo
+}
+class "Oferta Académica" as OfertaAcademica {
+  periodo
+  fechaPublicacion
+}
+class Sección {
+  numero
+  cupos
+  docente
+  horario
+}
+class "Simulación de Horario" as SimulacionHorario #E8F3FF {
+  nombre
+  creditosTotales
+  estado
+}
+class Evaluación {
+  docente
+  calificacionDocente
+  dificultadPercibida
+  comentario
+}
+
+' NUEVO: entidad que contiene el estado DE CADA ASIGNATURA recomendada,
+' no el estado de toda la simulación. Es una decisión de modelado para
+' concretar el requisito ambiguo del apartado EVALUACION2.md.
+class "Recomendación de Asignatura" as RecomendacionAsignatura #CFE8FF {
+  id
+  estado: tentativo | confirmada
+  fechaPropuesta
+  fechaConfirmacion [0..1]
+}
+
+' ASOCIACIONES PREEXISTENTES (con cardinalidad textual de 08-modelo-dominio.md)
+Estudiante "0..*" -- "1" Carrera : cursa >
+Estudiante "1" -- "0..*" AsignaturaCursada : tiene en su avance >
+Estudiante "1" -- "0..*" SimulacionHorario : arma >
+Carrera "1..*" -- "1..*" Asignatura : tiene en su malla >
+AsignaturaCursada "0..*" -- "1" Asignatura : corresponde a >
+Asignatura "1" -- "0..*" Sección : es una oferta de >
+Asignatura "0..*" -- "0..*" Asignatura : es prerrequisito de >
+Asignatura "1" -- "0..*" Evaluación : valora la dificultad de >
+OfertaAcademica "1" *-- "1..*" Sección : contiene >
+SimulacionHorario "0..*" -- "0..*" Sección : incluye >
+
+' RELACIONES NUEVAS, EVALUACION2.md
+SimulacionHorario "1" -- "0..*" RecomendacionAsignatura : contiene propuesta >
+RecomendacionAsignatura "0..*" -- "1" Asignatura : recomienda >
+
+note bottom of RecomendacionAsignatura
+  Nueva propuesta de planificación (HU-05).
+  Inicialmente tentativo en la malla.
+  Se consulta y confirma desde el planificador (HU-02).
+  Confirmada != cursada/aprobada.
+end note
+@enduml
